@@ -34,6 +34,7 @@ public class WelActivity extends Activity
 	
 //	private ImageButton btnPlay;
 	private ImageButton btnRefresh;
+	
 	private ImageButton btnTip;
 	private ImageButton btnFind;
 	private ImageButton btnPause;
