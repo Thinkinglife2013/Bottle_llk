@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/first_bg">
+    <!-- 广告 -->
+    <RelativeLayout
+        android:layout_gravity="top"
+	    android:id="@+id/ad"
+	    android:layout_width="fill_parent"
+	    android:layout_height="68dp"
+	    android:layout_marginBottom="10dp"
+	    android:visibility="gone">
+   
+	    <ListView
+	        android:id="@+id/list"
+	        android:scrollbars="none"
+	        android:layout_width="fill_parent"
+	        android:layout_height="55dp"
+	        android:background="#00000000"
+	        android:cacheColorHint="#00000000"
+	        android:divider="#dedfde"
+	        android:dividerHeight="1px"
+	        android:listSelector="#00000000" 
+	        android:layout_alignParentBottom="true"
+	        >
+	    </ListView>
+	    <ImageView 
+   	   	    android:id="@+id/ad_delete"
+            android:background="@drawable/ad_delete"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignParentRight="true"
+		   />
+	 </RelativeLayout>
+	 <!-- 广告 -->
+	 
+    <ImageView 
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:src="@drawable/first_play_selector"
+    	android:layout_gravity="center"
+    	android:layout_marginTop="60dp"
+    	android:layout_marginRight="40dp"/>
+    
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginBottom="10dp"
+	    android:layout_gravity="bottom"
+	    >
+        <ImageView 
+             android:id="@+id/help"
+             android:layout_width="wrap_content"
+	   		 android:layout_height="wrap_content"
+	   		 android:src="@drawable/first_help_selector"
+	   		 android:layout_alignParentLeft="true"
+	   		 android:layout_marginLeft="10dp"/>
+          <ImageView 
+              android:id="@+id/bg_music"
+             android:layout_width="wrap_content"
+	   		 android:layout_height="wrap_content"
+	   		 android:src="@drawable/music_yes"
+	   		 android:layout_alignParentRight="true"
+	   		 android:layout_marginRight="10dp"/>
+         <ImageView 
+              android:id="@+id/game_music"
+             android:layout_width="wrap_content"
+	   		 android:layout_height="wrap_content"
+	   		 android:src="@drawable/laba_yes"
+	   		 android:layout_toLeftOf="@id/bg_music"
+	   		 android:layout_marginRight="10dp"/>
+        
+    </RelativeLayout>
+
+</FrameLayout>

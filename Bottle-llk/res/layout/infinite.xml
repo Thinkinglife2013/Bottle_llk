@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/select_mode"
+    >
+
+	<FrameLayout
+	    android:id="@+id/ll"
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+	    android:background="@drawable/infinite_dialog"
+	    android:layout_gravity="center"
+	    >
+	    <LinearLayout 
+	        android:layout_gravity="center"
+	        android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_marginBottom="20dp"
+	    	android:orientation="vertical"
+		    >
+		    <TextView 
+		        android:id="@+id/toplevel"
+		        android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content" 
+		    	android:textColor="#c0000000"
+		    	android:textSize="20dp"
+		    	android:text="@string/top_level"/>
+		    <TextView 
+		        android:id="@+id/topintegral"
+		         android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content" 
+		    	android:textColor="#c0000000"
+		    	android:textSize="20dp"
+		    	android:text="@string/top_integral"/>
+	    </LinearLayout>
+	    <Button
+	        android:id="@+id/play"
+	        android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:background="@drawable/infinite_play_selector"
+		    android:layout_gravity="center"
+		    android:layout_marginLeft="15dp"
+		    android:layout_marginTop="45dp"/>
+	</FrameLayout>    
+    
+	<FrameLayout 
+	    android:layout_gravity="bottom"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="60dp" 
+	    >
+	    <ImageView 
+	        android:id="@+id/back"
+	        android:layout_gravity="bottom"
+	        android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content"
+	    	android:background="@drawable/select_guan_back"
+	    	android:layout_marginLeft="30dp"
+	    	android:layout_marginBottom="30dp"/>
+	    
+    </FrameLayout>
+
+</FrameLayout>
