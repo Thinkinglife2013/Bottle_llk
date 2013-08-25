@@ -25,20 +25,24 @@
     		android:paddingTop="5dip"
     		android:paddingLeft="5dip"
     		android:visibility="gone"/>-->
-    <LinearLayout 
-        android:id="@+id/level"
-        android:background="@drawable/level_bg"
+    		
+<!--    <LinearLayout 
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_centerHorizontal="true"
 	    android:layout_alignParentTop="true"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginLeft="10dp"
 	    android:layout_marginTop="5dp"
-	    android:gravity="center">
-        <ImageView 
-            android:background="@drawable/level"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		   />
+	    > -->
+    <LinearLayout 
+        android:id="@+id/level"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginTop="5dp"
+	    >
           <ImageView 
             android:id="@+id/num_one"
             android:scaleType="fitXY"
@@ -53,23 +57,43 @@
 		   />
     </LinearLayout>
     
+    <TextView android:id="@+id/jifen"
+   		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		android:layout_alignParentRight="true"
+   		android:layout_marginTop="7dp"
+   		android:layout_marginRight="10dp"
+   		android:text="630"
+   		android:textColor="@color/white"
+   		android:textSize="20dp"
+   		android:visibility="invisible"
+   		/>
+       
     <SeekBar
     	android:id="@+id/timer"
-    	android:layout_below="@drawable/level"
+    	android:layout_toLeftOf="@id/jifen"
+    	android:layout_toRightOf="@id/level"
     	android:layout_height="wrap_content"
     	android:layout_width="fill_parent"
+    	android:layout_marginTop="8dp"
     	android:visibility="visible"
-    	android:layout_marginTop="38dip"
-    	android:paddingLeft="20dip"
-    	android:paddingRight="20dip"
-    	android:layout_marginBottom="5dip"
+    	android:layout_marginRight="10dip"
     	android:progressDrawable="@layout/seekbar_img"  
         style="?android:attr/progressBarStyleHorizontal"   
         android:thumb="@null"
     	/>
-    
  
-    <com.xiudekeji.view.GameView
+    
+    <ImageView android:id="@+id/ready_go"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:background="@drawable/ready_go"
+    		android:layout_centerInParent="true"
+    		android:visibility="gone"
+    		/>
+ 	<!-- </LinearLayout> -->
+ 	
+    <com.xiude.view.GameView
     	android:layout_width="wrap_content" 
     	android:layout_height="wrap_content" 
     	android:id="@+id/game_view"
@@ -85,7 +109,6 @@
     			android:layout_height="wrap_content"
     			android:layout_alignParentBottom="true"
     			android:layout_centerHorizontal="true"
-    			android:background="@drawable/bottom_bg"
     			>
     	 <ImageButton android:id="@+id/pause_btn"
 	    			android:background="@drawable/game_pause_selector"
@@ -101,6 +124,7 @@
    			android:layout_alignParentRight="true"
    			android:layout_marginRight="18dp"
    			>
+   			
 		    <ImageButton android:id="@+id/refresh_btn"
 		    			android:background="@drawable/game_refresh_selector"
 		    			android:layout_width="wrap_content"
@@ -140,36 +164,5 @@
       </LinearLayout>	
     </RelativeLayout>			
     
-    <!-- 广告 -->
- <!--    <RelativeLayout
-        android:layout_above="@id/bottom"
-	    android:id="@+id/ad"
-	    android:layout_width="fill_parent"
-	    android:layout_height="67dp"
-	    android:layout_marginBottom="10dp">
-   
-	    <ListView
-	        android:id="@+id/list"
-	        android:scrollbars="none"
-	        android:layout_width="fill_parent"
-	        android:layout_height="55dp"
-	        android:background="#00000000"
-	        android:cacheColorHint="#00000000"
-	        android:divider="#dedfde"
-	        android:dividerHeight="1px"
-	        android:listSelector="#00000000" 
-	        android:layout_alignParentBottom="true"
-	        >
-	    </ListView>
-	    <ImageView 
-   	   	    android:id="@+id/ad_delete"
-            android:background="@drawable/ad_delete"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentTop="true"
-		    android:layout_alignParentRight="true"
-		   />
-	 </RelativeLayout> -->
-	 <!-- 广告 -->
     
 </RelativeLayout>

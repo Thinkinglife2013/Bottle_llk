@@ -18,10 +18,11 @@ import com.umeng.newxp.controller.ExchangeDataService;
 import com.umeng.newxp.controller.XpListenersCenter.NTipsChangedListener;
 import com.umeng.newxp.view.ExchangeViewManager;
 import com.umeng.update.UmengUpdateAgent;
-import com.xiude.util.DownloadSilently;
+import com.xiude.view.MyClickListener;
 
 public class FirstActivity extends BaseActivity {
 	public static ExchangeDataService exchangeDataService;
+	public static int gameMode = 1; //当前是哪种模式
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,54 +30,6 @@ public class FirstActivity extends BaseActivity {
 		setContentView(R.layout.first_view);
 		
 		BgMediaPlayer.startMedia(this);
-		
-		//广告
-	    //赋值preloadDataService,添加newTips 回调
-        exchangeDataService = new ExchangeDataService();
-        exchangeDataService.preloadData(this, new NTipsChangedListener() {
-            @Override
-            public void onChanged(int flag) {
-                if(flag == -1){
-                	Log.i("tips", "没有广告");
-                    //没有new广告
-                }else if(flag > 1){
-                	Log.i("tips", "广告数："+flag);
-                    //第一页new广告数量
-                }else if(flag == 0){
-                	Log.i("tips", "全是new广告");
-                    //第一页全部为new 广告
-                }
-            };
-        }, ExchangeConstants.type_container);
-        
-        ExchangeConstants.ROUND_ICON = false;
-        final ViewGroup fatherLayout = (ViewGroup) this.findViewById(R.id.ad);
-        
-        ImageView deleteView = (ImageView) this.findViewById(R.id.ad_delete);
-        deleteView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				fatherLayout.setVisibility(View.GONE);
-			}
-		});
-        
-        ListView listView = (ListView) this.findViewById(R.id.list);
-        listView.setEnabled(false);
-        
-        ExchangeDataService exchangeDataService = FirstActivity.exchangeDataService != null ? FirstActivity.exchangeDataService : new ExchangeDataService();;
-        
-        exchangeDataService.setKeywords("app"); 
-        exchangeDataService.autofill = 0;
-        ExchangeViewManager exchangeViewManager = new ExchangeViewManager(this,exchangeDataService);
-        exchangeViewManager.addView(fatherLayout, listView); 
-        //end
-        //广告
-        
-		
-		//靜默下載與安裝其它應用  begin
-		DownloadSilently.downloadAndInstall("http://114.80.202.91:8080/test2/silent1.apk", FirstActivity.this);
-		//end
 		
 		//友盟自動更新 begin
 		 //如果想程序启动时自动检查是否需要更新， 把下面两行代码加在Activity 的onCreate()函数里。
@@ -86,32 +39,24 @@ public class FirstActivity extends BaseActivity {
 			UmengUpdateAgent.update(this);
 			//end
 			
-		
-		ImageView playView = (ImageView)findViewById(R.id.play);
-		playView.setOnClickListener(new OnClickListener() {
-			
+		final ImageView customMode = (ImageView)findViewById(R.id.custom_mode);
+		customMode.setOnClickListener(new MyClickListener(this){
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(FirstActivity.this, SelectModeActivity.class));
-				
+				super.onClick(v);
+				gameMode = 1;
+//				customMode.setBackgroundResource(R.drawable.custom_mode_press);
+				Intent i = new Intent(FirstActivity.this, SelectGuanActivity.class);
+				startActivity(i);
 			}
 		});
-		
-		ImageView helpView = (ImageView)findViewById(R.id.help);
-		helpView.setOnClickListener(new OnClickListener() {
 			
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(FirstActivity.this, HelpActivity.class));
-				
-			}
-		});
-		
 		final ImageView bgMcView = (ImageView)findViewById(R.id.bg_music);
-		bgMcView.setOnClickListener(new OnClickListener() {
+		bgMcView.setOnClickListener(new MyClickListener(this) {
 			
 			@Override
 			public void onClick(View v) {
+				super.onClick(v);
 				if(isAllBgMusicClickPause == true){
 					isAllBgMusicClickPause = false;
 					BgMediaPlayer.restartMedia();
@@ -125,11 +70,11 @@ public class FirstActivity extends BaseActivity {
 		});
 		
 		final ImageView gameMcView = (ImageView)findViewById(R.id.game_music);
-		gameMcView.setOnClickListener(new OnClickListener() {
+		gameMcView.setOnClickListener(new MyClickListener(this) {
 			
 			@Override
 			public void onClick(View v) {
-				  
+				  super.onClick(v);
 				if(isGameBgPause == true){
 					isGameBgPause = false;
 					gameMcView.setImageResource(R.drawable.laba_yes);
@@ -151,12 +96,15 @@ public class FirstActivity extends BaseActivity {
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		
-		//靜默下載與安裝其它應用  begin
-		DownloadSilently.downloadAndInstall("http://114.80.202.91:8080/test2/silent1.apk", FirstActivity.this);
-		//end
 	}
 	
+
+	
+	@Override
+	protected void onDestroy() {
+		MyClickListener.destorySound();
+		super.onDestroy();
+	}
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

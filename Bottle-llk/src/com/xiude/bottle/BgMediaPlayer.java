@@ -36,11 +36,14 @@ public class BgMediaPlayer {
 	}
 	
 	public static void startMedia(Context context){
+		if(m != null){
+			m.release();
+		}
 		m = new MediaPlayer();
-		m.reset();// 恢复到未初始化的状�?
+		m.reset();
 
-		m = MediaPlayer.create(context, R.raw.bg);// 读取音频
+		m = MediaPlayer.create(context, R.raw.bg);
 		m.setLooping(true);
-		m.start(); // 播放
+		m.start(); 
 	}
 }

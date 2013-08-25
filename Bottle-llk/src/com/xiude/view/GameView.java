@@ -15,9 +15,10 @@ import android.view.MotionEvent;
 import android.widget.SeekBar;
 
 import com.xiude.bottle.BaseActivity;
-import com.xiude.bottle.SelectModeActivity;
+import com.xiude.bottle.FirstActivity;
+import com.xiude.bottle.R;
+import com.xiude.bottle.FirstActivity;
 import com.xiude.bottle.SoundPlay;
-import com.xiudekeji.android.R;
 
 public class GameView extends BoardView {
 
@@ -39,7 +40,7 @@ public class GameView extends BoardView {
 	
 	
 	public static SoundPlay soundPlay;
-	public MediaPlayer player;
+//	public MediaPlayer player;
 	
 	public RefreshTime refreshTime;
 	private RefreshHandler refreshHandler = new RefreshHandler();
@@ -59,10 +60,10 @@ public class GameView extends BoardView {
 		super(context, atts);
 		this.context = context;
 		
-		if(!BaseActivity.isAllBgMusicClickPause){
-			player = MediaPlayer.create(context, R.raw.back2new); 
-			player.setLooping(true);//设置循环播放
-		}
+//		if(!BaseActivity.isAllBgMusicClickPause){
+//			player = MediaPlayer.create(context, R.raw.back2new); 
+//			player.setLooping(true);//设置循环播放
+//		}
 	}
 	
 	public static final int ID_SOUND_CHOOSE = 0;
@@ -72,6 +73,7 @@ public class GameView extends BoardView {
 	public static final int ID_SOUND_REFRESH = 6;
 	public static final int ID_SOUND_TIP = 7;
 	public static final int ID_SOUND_ERROR = 8;
+	public static final int ID_SOUND_READYGO = 9;
 	
 	private SeekBar progress;
 	public void setProgress(SeekBar pro){
@@ -89,7 +91,7 @@ public class GameView extends BoardView {
 	}
 
 	public void startPlay(int guan){
-		if(SelectModeActivity.gameMode == 1){
+		if(FirstActivity.gameMode == 1){
 			//第一种模式，每关道具不累计，初始为1
 			Help = 1;
 			Refresh = 1;
@@ -105,212 +107,212 @@ public class GameView extends BoardView {
 		msg.arg1 = guan;
 		handler.sendMessage(msg);
 		if(guan == 1){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 300;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 120;
 			}
 			initOneMap();
 		}else if(guan == 2){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 300;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 150;
 			}
 			initTwoMap();
 		}else if(guan == 3){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 400;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 180;
 			}
 			initThreeMap();
 		}else if(guan == 4){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 500;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 230;
 			}
 			initFourMap();
 		}else if(guan == 5){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 500;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 230;
 			}
 			initFiveMap();
 		}else if(guan == 6){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 500;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 230;
 			}
 			initSixMap();
 		}else if(guan == 7){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 600;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 270;
 			}
 			initSevenMap();
 		}else if(guan == 8){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initEightMap();
 		}else if(guan == 9){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initNightMap();
 		}else if(guan == 10){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTenMap();
 		}else if(guan == 11){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initElevenMap();
 		}else if(guan == 12){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwelveMap();
 		}else if(guan == 13){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initThirteenMap();
 		}else if(guan == 14){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initFourteenMap();
 		}else if(guan == 15){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initFifteenMap();
 		}else if(guan == 16){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initSixteenMap();
 		}else if(guan == 17){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initSeventeenMap();
 		}else if(guan == 18){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initEighteenMap();
 		}else if(guan == 19){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initNineteenMap();
 		}else if(guan == 20){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentyMap();
 		}else if(guan == 21){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentyOneMap();
 		}else if(guan == 22){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentyTwoMap();
 		}else if(guan == 23){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentyThreeMap();
 		}else if(guan == 24){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentyFourMap();
 		}else if(guan == 25){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentyFiveMap();
 		}else if(guan == 26){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentySixMap();
 		}else if(guan == 27){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentySevenMap();
 		}else if(guan == 28){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentyEightMap();
 		}else if(guan == 29){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initTwentyNineMap();
 		}else if(guan == 30){
-			if(SelectModeActivity.gameMode == 1){//第一種模式
+			if(FirstActivity.gameMode == 1){//第一種模式
 				totalTime = 800;
-			}else if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){//第二種模式
+			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
 			initThirtyMap();
@@ -320,9 +322,9 @@ public class GameView extends BoardView {
 		leftTime = totalTime;
 		setRefeshTimeCount(0);
 		
-		if(!BaseActivity.isAllBgMusicClickPause){
-			player.start();
-		}
+//		if(!BaseActivity.isAllBgMusicClickPause){
+//			player.start();
+//		}
 		
 		refreshTime = new RefreshTime();
 		refreshTime.start();
@@ -332,19 +334,19 @@ public class GameView extends BoardView {
 	public void startNextPlay(int guan){
 		//下一关为上一关减去10秒的时间
 //		totalTime-=10;
-		if(SelectModeActivity.gameMode != 3){
+		if(FirstActivity.gameMode != 3){
 			SharedPreferences levelPreference = context.getSharedPreferences("level", 0);
 			int level = 1;
-			if(SelectModeActivity.gameMode == 1){
+			if(FirstActivity.gameMode == 1){
 				level = levelPreference.getInt("custom_level", 1);
-			}else if(SelectModeActivity.gameMode == 2){
+			}else if(FirstActivity.gameMode == 2){
 				level = levelPreference.getInt("challenge_level", 1);
 			}
 			
 			if(level <= guan){
-				if(SelectModeActivity.gameMode == 1){
+				if(FirstActivity.gameMode == 1){
 					levelPreference.edit().putInt("custom_level", guan).commit();
-				}else if(SelectModeActivity.gameMode == 2){
+				}else if(FirstActivity.gameMode == 2){
 					levelPreference.edit().putInt("challenge_level", guan).commit();
 				}
 			}
@@ -362,11 +364,11 @@ public class GameView extends BoardView {
 	        soundPlay.loadSfx(context, R.raw.item1, ID_SOUND_REFRESH);
 	        soundPlay.loadSfx(context, R.raw.item2, ID_SOUND_TIP);
 	        soundPlay.loadSfx(context, R.raw.alarm, ID_SOUND_ERROR);
+	        soundPlay.loadSfx(context, R.raw.ready_go, ID_SOUND_READYGO);
 	}
 	
 	public static void destorySound(){
 		 soundPlay = null;
-	  
 	}
 
 	public void setOnTimerListener(OnTimerListener timerListener){

@@ -8,10 +8,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.xiude.bottle.Constants;
+import com.xiude.bottle.FirstActivity;
+import com.xiude.bottle.R;
 import com.xiude.bottle.SelectModeActivity;
 import com.xiude.bottle.WelActivity;
 import com.xiude.view.GameView;
-import com.xiudekeji.android.R;
 
 public class WinDialog extends Dialog implements OnClickListener{
 
@@ -84,7 +85,7 @@ public class WinDialog extends Dialog implements OnClickListener{
 			((WelActivity)context).quit();
 			break;
 		case R.id.replay_imgbtn:
-			if(SelectModeActivity.gameMode == 3){
+			if(FirstActivity.gameMode == 3){
 				guan = 1;
 			}
 			gameview.startPlay(guan);

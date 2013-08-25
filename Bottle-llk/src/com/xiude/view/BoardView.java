@@ -9,7 +9,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -20,8 +22,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.xiude.bottle.Constants;
-import com.xiude.bottle.SelectModeActivity;
-import com.xiudekeji.android.R;
+import com.xiude.bottle.FirstActivity;
+import com.xiude.bottle.R;
 
 /**
  * @author Administrator
@@ -58,7 +60,7 @@ public class BoardView extends View {
 	/**
 	 * iconCounts 图标的数目
 	 */
-	protected int iconCounts=25;
+	protected int iconCounts=28;
 	/**
 	 * icons 所有的图片
 	 */
@@ -103,6 +105,9 @@ public class BoardView extends View {
 		loadBitmaps(22, r.getDrawable(R.drawable.fruit_22));
 		loadBitmaps(23, r.getDrawable(R.drawable.fruit_23));
 		loadBitmaps(24, r.getDrawable(R.drawable.fruit_24));
+		loadBitmaps(25, r.getDrawable(R.drawable.fruit_25));
+		loadBitmaps(26, r.getDrawable(R.drawable.fruit_26));
+		loadBitmaps(27, r.getDrawable(R.drawable.fruit_27));
 		
 		//初始化连线图片
 		lineBm = BitmapFactory.decodeResource(getResources(), R.drawable.line);
@@ -172,8 +177,6 @@ public class BoardView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		
-//		long beginTime = System.currentTimeMillis();
-		
 		/**
 		 * 绘制棋盘的所有图标 当这个坐标内的值大于0时绘制
 		 */
@@ -226,23 +229,22 @@ public class BoardView extends View {
 				//不是使用自动提醒工具
 				for (int i = 0; i < path.length - 1; i++) {
 					//画连线
-//					Paint paint = new Paint();
-//					paint.setColor(Color.TRANSPARENT);
-//					paint.setStyle(Paint.Style.FILL);
-//					paint.setStrokeWidth(3);
+					Paint paint = new Paint();
+					paint.setColor(Color.CYAN);
+					paint.setStyle(Paint.Style.STROKE);
+					paint.setStrokeWidth(3);
 					Point p1 = indextoScreen(path[i].x, path[i].y);
 					Point p2 = indextoScreen(path[i + 1].x, path[i + 1].y);
 					
-//					canvas.drawLine(p1.x + iconSize / 2, p1.y + iconSize / 2,
-//						p2.x + iconSize / 2, p2.y + iconSize / 2, paint);
+					canvas.drawLine(p1.x + iconSize / 2, p1.y + iconSize / 2,
+						p2.x + iconSize / 2, p2.y + iconSize / 2, paint);
 					
-					int length;
+				/*	int length;
 					if(p1.x == p2.x){
 						length = (p2.y) - (p1.y);
 					}else{
 						length = (p2.x) - (p1.x);
 					}
-					
 					
 					 // 定义矩阵对象  
 			         Matrix matrix=new Matrix(); 
@@ -373,15 +375,14 @@ public class BoardView extends View {
 			        		 
 			        	 }
 			        	 
-			         }
-					
+			         }*/
 				}
 //				long duration = System.currentTimeMillis() - beginTime;
 //				Log.i("time", ""+duration);
 			}
 			
 			//第二种模式，每消一对加一刻时间
-			if(SelectModeActivity.gameMode == 2 || SelectModeActivity.gameMode == 3){
+			if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){
 				leftTime += 8;
 				timerListener.onTimer(leftTime);
 			}

@@ -79,8 +79,8 @@ public class PauseDialog extends Dialog implements OnClickListener{
 	private void restartGame(){
 		gameview.setVisibility(View.VISIBLE);
 		
-		if(gameview.player != null){
-			gameview.player.start();
+		if(WelActivity.player != null){
+			WelActivity.player.start();
 		}
 		gameview.startTimer();
 		gameview.refreshTime = gameview.new RefreshTime();

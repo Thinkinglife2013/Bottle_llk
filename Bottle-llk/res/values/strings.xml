@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">大内连连看</string>
+    <string name="app_name">瓶子连连看</string>
     <string name="time">所用时间：$秒</string>
     <string name="integral">积分：$分</string>
     <string name="quit">退出</string>

@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.LayoutInflater;
@@ -22,15 +21,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
-import com.umeng.newxp.common.ExchangeConstants;
-import com.umeng.newxp.controller.ExchangeDataService;
-import com.umeng.newxp.view.ExchangeViewManager;
-import com.xiude.bottle.R;
+import com.xiude.view.MyClickListener;
 
 public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		OnPageChangeListener, OnGestureListener {
@@ -109,18 +105,21 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 					.findViewById(R.id.one_guan);
 			ImageView tenGuan = (ImageView) convetView
 					.findViewById(R.id.ten_guan);
-			ImageView lockView = (ImageView) convetView
+			FrameLayout lockView = (FrameLayout) convetView
 					.findViewById(R.id.lock);
-			
+			LinearLayout guanLayout = (LinearLayout) convetView
+					.findViewById(R.id.guan_num);
 			
 			Guan guan = (Guan) getItem(position);
 
 			String guanNum = guan.getNumStr();
 			
 			if(Integer.parseInt(guanNum) <= level){
-				lockView.setVisibility(View.GONE);
+				guanLayout.setVisibility(View.VISIBLE);
+				lockView.setBackgroundColor(getResources().getColor(R.color.black_00_transparent));
 			}else{
-				lockView.setVisibility(View.VISIBLE);
+				guanLayout.setVisibility(View.GONE);
+				lockView.setBackgroundResource(R.drawable.lock);
 			}
 
 			String[] nums;
@@ -167,53 +166,19 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 	
-	ViewGroup fatherLayout; //广告的展示位
+//	ViewGroup fatherLayout; //广告的展示位
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.guan);
 		
-	    //广告
-        ExchangeConstants.ROUND_ICON = false;
-        fatherLayout = (ViewGroup) this.findViewById(R.id.ad);
-        
-        ImageView deleteView = (ImageView) this.findViewById(R.id.ad_delete);
-        deleteView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				fatherLayout.setVisibility(View.GONE);
-			}
-		});
-        
-        ListView listView = (ListView) this.findViewById(R.id.list);
-        listView.setEnabled(false);
-        
-        ExchangeDataService exchangeDataService = FirstActivity.exchangeDataService != null ? FirstActivity.exchangeDataService : new ExchangeDataService();;
-        
-        exchangeDataService.setKeywords("app"); 
-        exchangeDataService.autofill = 0;
-        ExchangeViewManager exchangeViewManager = new ExchangeViewManager(this,exchangeDataService);
-        exchangeViewManager.addView(fatherLayout, listView); 
-        
-//    	int count = listView.getCount();
-        SharedPreferences adCountPreference = getSharedPreferences("ad_count", 0);
-        int count = adCountPreference.getInt("count", 0);
-    	if(count > 0){
-    		deleteView.setVisibility(View.VISIBLE);
-    	}else{
-    		deleteView.setVisibility(View.GONE);
-    	}
-		Log.i("items", "count ="+count);
-        //end
-       //广告
-        
 		ImageView backView = (ImageView)findViewById(R.id.back);
-		backView.setOnClickListener(new OnClickListener() {
+		backView.setOnClickListener(new MyClickListener(this) {
 			
 			@Override
 			public void onClick(View v) {
+				super.onClick(v);
 				finish();
 			}
 		});
@@ -243,9 +208,9 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		
 		SharedPreferences levelPreference = this.getSharedPreferences("level", 0);
 		
-		if(SelectModeActivity.gameMode == 1){
+		if(FirstActivity.gameMode == 1){
 			level = levelPreference.getInt("custom_level", 1);
-		}else if(SelectModeActivity.gameMode == 2){
+		}else if(FirstActivity.gameMode == 2){
 			level = levelPreference.getInt("challenge_level", 1);
 		}
 		
@@ -351,12 +316,12 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
-		fatherLayout.setVisibility(View.VISIBLE);
+//		fatherLayout.setVisibility(View.VISIBLE);
 		
 		SharedPreferences levelPreference = this.getSharedPreferences("level", 0);
-		if(SelectModeActivity.gameMode == 1){
+		if(FirstActivity.gameMode == 1){
 			level = levelPreference.getInt("custom_level", 1);
-		}else if(SelectModeActivity.gameMode == 2){
+		}else if(FirstActivity.gameMode == 2){
 			level = levelPreference.getInt("challenge_level", 1);
 		}else{
 			level = levelPreference.getInt("infinite_level", 1);

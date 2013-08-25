@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,7 +26,6 @@ import android.widget.TextView;
 import com.xiude.util.FailDialog;
 import com.xiude.util.WinDialog;
 import com.xiude.view.GameView;
-import com.xiude.view.GameView.RefreshTime;
 import com.xiude.view.OnStateListener;
 import com.xiude.view.OnTimerListener;
 import com.xiude.view.OnToolsChangeListener;
@@ -50,7 +51,7 @@ public class WelActivity extends Activity
 	private int curTopIntegral; //当前总积分
 	
 	//播放游戏前音乐的player
-//	private MediaPlayer player;
+	public static MediaPlayer player;
 	
 	private Handler handler = new Handler(){
 		@Override
@@ -68,18 +69,18 @@ public class WelActivity extends Activity
 		        setParams(lay); 
 				dialog.show();
 				
-				if(SelectModeActivity.gameMode != 3){ //第一二种模式，保存最高关数
+				if(FirstActivity.gameMode != 3){ //第一二种模式，保存最高关数
 					SharedPreferences levelPreference = getSharedPreferences("level", 0);
 					int level = 1;
-					if(SelectModeActivity.gameMode == 1){
+					if(FirstActivity.gameMode == 1){
 						level = levelPreference.getInt("custom_level", 1);
-					}else if(SelectModeActivity.gameMode == 2){
+					}else if(FirstActivity.gameMode == 2){
 						level = levelPreference.getInt("challenge_level", 1);
 					}
 					if(level <= (guan + 1)){
-						if(SelectModeActivity.gameMode == 1){
+						if(FirstActivity.gameMode == 1){
 							levelPreference.edit().putInt("custom_level", guan+1).commit();
-						}else if(SelectModeActivity.gameMode == 2){
+						}else if(FirstActivity.gameMode == 2){
 							levelPreference.edit().putInt("challenge_level", guan+1).commit();
 						}
 					}
@@ -126,7 +127,6 @@ public class WelActivity extends Activity
 	
 	ImageView levelOneView;
 	ImageView levelTwoView;
-//	ViewGroup fatherLayout; //广告的展示位
 	
     /** Called when the activity is first created. */
     @Override
@@ -135,25 +135,6 @@ public class WelActivity extends Activity
         setContentView(R.layout.welcome);
         
         BgMediaPlayer.pauseMedia(); //暂停背景音乐的播放
-        
-        //广告
-    /*    ExchangeConstants.ROUND_ICON = false;
-        fatherLayout = (ViewGroup) this.findViewById(R.id.ad);
-        
-        ImageView deleteView = (ImageView) this.findViewById(R.id.ad_delete);
-        deleteView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				fatherLayout.setVisibility(View.GONE);
-			}
-		});
-        
-        ListView listView = (ListView) this.findViewById(R.id.list);
-        listView.setEnabled(false);
-        ExchangeViewManager exchangeViewManager = new ExchangeViewManager(this,new ExchangeDataService());
-        exchangeViewManager.addView(fatherLayout, listView); */
-       //广告
         
         btnRefresh = (ImageButton) findViewById(R.id.refresh_btn);
         btnTip = (ImageButton) findViewById(R.id.tip_btn);
@@ -168,6 +149,7 @@ public class WelActivity extends Activity
         textFindNum = (TextView) findViewById(R.id.text_find_num);
         levelOneView = (ImageView) findViewById(R.id.num_one);
         levelTwoView = (ImageView) findViewById(R.id.num_two);
+        final ImageView readyView = (ImageView) findViewById(R.id.ready_go);
         
         
         Intent i = getIntent();
@@ -178,6 +160,7 @@ public class WelActivity extends Activity
         //设最大时间
 //        progress.setMax(gameView.getTotalTime());
         gameView.setProgress(progress);
+        progress.setVisibility(View.GONE);
         gameView.setHanlder(handler);
         
         btnPause.setOnClickListener(this);
@@ -190,20 +173,100 @@ public class WelActivity extends Activity
         
         if(!BaseActivity.isGameBgPause){
         	GameView.initSound(this);
+        	
         }
         
-//        Animation scale = AnimationUtils.loadAnimation(this,R.anim.scale_anim);
-//        imgTitle.startAnimation(scale);
-//        btnPlay.startAnimation(scale);
+        new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+		       
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				GameView.soundPlay.play(GameView.ID_SOUND_READYGO, 0);
+
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						
+						Animation scale = AnimationUtils.loadAnimation(WelActivity.this,R.anim.scale_anim);
+				        readyView.startAnimation(scale);
+				        readyView.setVisibility(View.VISIBLE);
+				        scale.setAnimationListener(new AnimationListener() {
+							
+							@Override
+							public void onAnimationStart(Animation animation) {
+							}
+							
+							@Override
+							public void onAnimationRepeat(Animation animation) {
+							}
+							
+							@Override
+							public void onAnimationEnd(Animation animation) {
+								 Animation scaleOut = AnimationUtils.loadAnimation(WelActivity.this,R.anim.scale_anim_out);
+							     readyView.startAnimation(scaleOut);
+							     scaleOut.setAnimationListener(new AnimationListener() {
+									
+									@Override
+									public void onAnimationStart(Animation animation) {
+									}
+									
+									@Override
+									public void onAnimationRepeat(Animation animation) {
+									}
+									
+									@Override
+									public void onAnimationEnd(Animation animation) {
+								        readyView.setVisibility(View.GONE);
+								    	//开始游戏
+								        initView();
+								        gameView.startPlay(guan);
+								    	if(!BaseActivity.isAllBgMusicClickPause){
+								    		player = MediaPlayer.create(WelActivity.this, R.raw.back2new); 
+											player.setLooping(true);//设置循环播放
+											player.start();
+										}
+									}
+								});
+							}
+						});
+				        
+					}
+				});
+			}
+		}).start();
+      
         
        /* player = MediaPlayer.create(this, R.raw.bg);
         player.setLooping(true);//设置循环播放
         player.start();*/
         
-        //开始游戏
-        initView();
-        gameView.startPlay(guan);
-        
+//        new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				try {
+//					Thread.sleep(1400);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				
+//				runOnUiThread(new Runnable() {
+//					
+//					@Override
+//					public void run() {
+					
+//					}
+//				});
+//			}
+//		}).start();
+      
     }
     
     /**设置每关的关数
@@ -265,7 +328,7 @@ public class WelActivity extends Activity
     	 }
     
     @Override
-    protected void onResume() {
+    protected void onRestart() {
     	super.onResume();
     	restartGame();
     }
@@ -273,8 +336,10 @@ public class WelActivity extends Activity
 	private void restartGame(){
 		gameView.setVisibility(View.VISIBLE);
 		
-		if(gameView.player != null){
-			gameView.player.start();
+		if(player != null){
+			if(!player.isPlaying()){
+				player.start();
+			}
 		}
 		
 		if(gameView.isStop()){
@@ -285,7 +350,7 @@ public class WelActivity extends Activity
 	}
 	
     @Override
-    protected void onPause() {
+    protected void onStop() {
     	super.onPause();
     	gameView.setMode(GameView.PAUSE);
     }
@@ -327,7 +392,6 @@ public class WelActivity extends Activity
     
 	@Override
 	public void onClick(View v) {
-    	
     	switch(v.getId()){
     	case R.id.pause_btn:
 		    PauseDialog dialog = new PauseDialog(WelActivity.this,gameView, guan);
@@ -374,15 +438,15 @@ public class WelActivity extends Activity
 			break;
 		case GameView.PAUSE:
 //			player.stop();
-			if(gameView.player != null){
-				gameView.player.pause();
+			if(player != null){
+				player.pause();
 			}
 	    	gameView.stopTimer();
 			break;
 		case GameView.QUIT:
 //			player.release();
-			if(gameView.player != null){
-				gameView.player.release();
+			if(player != null){
+				player.release();
 			}
 	    	gameView.stopTimer();
 	    	break;

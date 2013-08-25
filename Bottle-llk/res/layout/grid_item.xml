@@ -6,12 +6,14 @@
     android:orientation="vertical" 
     android:gravity="center">
 	<FrameLayout 
+	    android:id="@+id/lock"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical" 
-	    android:background="@drawable/ball"
+	    android:background="@drawable/lock"
 	    >
 		<LinearLayout 
+		   android:id="@+id/guan_num"
 		   android:layout_width="wrap_content"
 	       android:layout_height="wrap_content"
 	       android:orientation="horizontal">
@@ -34,23 +36,21 @@
 	          />
 		</LinearLayout>
 	   
-		 <ImageView 
+	<!-- 	 <ImageView 
 	           android:id="@+id/lock"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:scaleType="fitXY"
 	          android:src="@drawable/lock"
 	          android:layout_gravity="bottom|right"
-	          
-	          />
+	          />-->
 		
-	</FrameLayout>
+	</FrameLayout> 
 		<LinearLayout 
-		    android:layout_marginTop="-23dp"
 		   android:layout_width="wrap_content"
 	       android:layout_height="wrap_content"
 	       android:orientation="horizontal"
-	       android:gravity="center"
+	       android:gravity="bottom"
 	       android:visibility="gone"
 	       >
 	        <ImageView 
