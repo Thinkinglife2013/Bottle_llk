@@ -20,6 +20,7 @@ import com.umeng.newxp.view.ExchangeViewManager;
 import com.umeng.update.UmengUpdateAgent;
 import com.xiude.view.MyClickListener;
 
+//company test
 public class FirstActivity extends BaseActivity {
 	public static ExchangeDataService exchangeDataService;
 	public static int gameMode = 1; //当前是哪种模式
