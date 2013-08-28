@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.SeekBar;
 
@@ -467,7 +468,9 @@ public class GameView extends BoardView {
 	public boolean onTouchEvent(MotionEvent event) {
 		int x = (int) event.getX();
 		int y = (int) event.getY();
+//		Log.i("xy", "x="+x+", y="+y);
 		Point p = screenToindex(x, y);
+//		Log.i("selected.size()", selected.size()+"");
 		if (map[p.x][p.y] > 0) {
 			if (selected.size() == 1) {
 				if (link(selected.get(0), p)) {
@@ -493,6 +496,7 @@ public class GameView extends BoardView {
 				GameView.this.invalidate();
 			}
 		}
+//		Log.i("selected.size()", selected.size()+"");
 		return super.onTouchEvent(event);
 	}
 	

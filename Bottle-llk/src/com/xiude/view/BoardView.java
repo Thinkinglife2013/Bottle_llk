@@ -13,11 +13,13 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -109,12 +111,11 @@ public class BoardView extends View {
 		loadBitmaps(26, r.getDrawable(R.drawable.fruit_26));
 		loadBitmaps(27, r.getDrawable(R.drawable.fruit_27));
 		
-		//初始化连线图片
+/*		//初始化连线图片
 		lineBm = BitmapFactory.decodeResource(getResources(), R.drawable.line);
 		
 		//初始化左上角方向转角图片
 		leftTopCornerBm = BitmapFactory.decodeResource(getResources(), R.drawable.corner);
-//		leftTopCornerBm = Bitmap.createBitmap(leftTopCornerBm, 0, 0, leftTopCornerBm.getWidth()/2, leftTopCornerBm.getHeight()); 
 		
         Matrix matrix=new Matrix(); 
         
@@ -136,7 +137,7 @@ public class BoardView extends View {
 	     // 向左旋转90度，参数为正则向右旋转  
 	     matrix3.postRotate(180); 
 	     rightBottomBm = Bitmap.createBitmap(leftTopCornerBm,0,0,leftTopCornerBm.getWidth(), 
-     		leftTopCornerBm.getHeight(), matrix3,true); 
+     		leftTopCornerBm.getHeight(), matrix3,true); */
 	}
 	
 	/**
@@ -148,7 +149,7 @@ public class BoardView extends View {
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) this.getContext()).getWindowManager()
 		.getDefaultDisplay().getMetrics(dm);
-        iconSize = dm.widthPixels/(xCount);
+        iconSize = dm.widthPixels/(xCount - 1);
     }
 
 	/**
@@ -180,21 +181,11 @@ public class BoardView extends View {
 		/**
 		 * 绘制棋盘的所有图标 当这个坐标内的值大于0时绘制
 		 */
-//		try {
-//			Thread.sleep(200);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		Handler handler = new Handler();
-//		handler.postDelayed(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-				for(int x=0;x<map.length;x+=1){
+				for(int x=1;x<map.length;x+=1){
 					for(int y=0;y<map[x].length;y+=1){
 						if(map[x][y]>0){
 //							Log.i("map", "map > 0");
-							final Point p = indextoScreen(x, y);
+							final PointF p = indextoScreen(x, y);
 							final int mapXy = map[x][y];
 							
 						
@@ -203,18 +194,16 @@ public class BoardView extends View {
 						}
 					}
 				}
-//			}
-//		}, 200);
 		
 		/**
 		 * 绘制选中图标，当选中时图标放大显示
 		 */
 		for(Point position:selected){
-			Point p = indextoScreen(position.x, position.y);
+			PointF p = indextoScreen(position.x, position.y);
 			if(map[position.x][position.y] >= 1){
 				canvas.drawBitmap(icons[map[position.x][position.y]],
 						null,
-						new Rect(p.x-5, p.y-5, p.x + iconSize + 5, p.y + iconSize + 5), null);
+						new Rect((int)(p.x-15), (int)(p.y-15), (int)(p.x + iconSize + 15), (int)(p.y + iconSize + 15)), null);
 			}
 		}
 		
@@ -224,161 +213,21 @@ public class BoardView extends View {
 		if (path != null && path.length >= 2) {
 			if(!isFind){
 				String lastOrientation = null;
-//				long beginTime = System.currentTimeMillis();
 				
 				//不是使用自动提醒工具
 				for (int i = 0; i < path.length - 1; i++) {
 					//画连线
 					Paint paint = new Paint();
-					paint.setColor(Color.CYAN);
+					paint.setColor(Color.WHITE);
 					paint.setStyle(Paint.Style.STROKE);
-					paint.setStrokeWidth(3);
-					Point p1 = indextoScreen(path[i].x, path[i].y);
-					Point p2 = indextoScreen(path[i + 1].x, path[i + 1].y);
+					paint.setStrokeWidth(7);
+					PointF p1 = indextoScreen(path[i].x, path[i].y);
+					PointF p2 = indextoScreen(path[i + 1].x, path[i + 1].y);
 					
 					canvas.drawLine(p1.x + iconSize / 2, p1.y + iconSize / 2,
 						p2.x + iconSize / 2, p2.y + iconSize / 2, paint);
 					
-				/*	int length;
-					if(p1.x == p2.x){
-						length = (p2.y) - (p1.y);
-					}else{
-						length = (p2.x) - (p1.x);
-					}
-					
-					 // 定义矩阵对象  
-			         Matrix matrix=new Matrix(); 
-			         
-			         float scaleH = (float)length/lineBm.getWidth();
-			         // 缩放原图  
-			         matrix.postScale(scaleH, 1f); 
-			         
-			         if(p1.x == p2.x){
-				         // 向左旋转45度，参数为正则向右旋转  
-				         matrix.postRotate(-90); 
-			         }
-			        
-			         Bitmap dstbmp = Bitmap.createBitmap(lineBm,0,0,lineBm.getWidth(), 
-			        		 lineBm.getHeight(), matrix,true); 
-			         
-			         if(p1.y > p2.y){//向上连
-			        	 canvas.drawBitmap(dstbmp, p1.x, p2.y + iconSize / 2, null);
-			        	 if(path.length == 3 || path.length == 4){
-			        		 if(i == 0){
-			        			 lastOrientation = "up";
-			        		 }else if(i == 1){
-			        			 if("up".equals(lastOrientation)){
-			        			 }else if("down".equals(lastOrientation)){
-			        			 }else if("left".equals(lastOrientation)){
-			        				 canvas.drawBitmap(rightTopBm, p1.x, p1.y , null);
-			        			 }else if("right".equals(lastOrientation)){
-			        				 canvas.drawBitmap(leftTopCornerBm, p1.x, p1.y , null);
-			        			 }
-			        			 
-			        			 if(path.length == 4){
-			        				 lastOrientation = "up";
-				        		 }
-			        		 }else if(i == 2){
-			        			 if("up".equals(lastOrientation)){
-			        			 }else if("down".equals(lastOrientation)){
-			        			 }else if("left".equals(lastOrientation)){
-			        				 canvas.drawBitmap(rightTopBm, p1.x, p1.y , null);
-			        			 }else if("right".equals(lastOrientation)){
-			        				 canvas.drawBitmap(leftTopCornerBm, p1.x, p1.y , null);
-			        			 }
-			        		 }
-			        		 
-			        	 }
-			        	 
-			         }else if(p1.y < p2.y){//向下连
-			        	 canvas.drawBitmap(dstbmp, p2.x, p1.y + iconSize / 2, null);
-			        	 if(path.length == 3 || path.length == 4){
-			        		 if(i == 0){
-			        			 lastOrientation = "down";
-			        		 }else if(i == 1){
-			        			 if("up".equals(lastOrientation)){
-			        			 }else if("down".equals(lastOrientation)){
-			        			 }else if("left".equals(lastOrientation)){
-			        				 canvas.drawBitmap(rightBottomBm, p1.x , p1.y, null);
-			        			 }else if("right".equals(lastOrientation)){
-			        				 canvas.drawBitmap(leftBottomBm, p1.x , p1.y, null);
-			        			 }
-			        			 
-			        			 if(path.length == 4){
-			        				 lastOrientation = "down";
-				        		 }
-			        		 }else if(i == 2){
-			        			 if("up".equals(lastOrientation)){
-			        			 }else if("down".equals(lastOrientation)){
-			        			 }else if("left".equals(lastOrientation)){
-			        				 canvas.drawBitmap(rightBottomBm, p1.x , p1.y, null);
-			        			 }else if("right".equals(lastOrientation)){
-			        				 canvas.drawBitmap(leftBottomBm, p1.x , p1.y, null);
-			        			 }
-			        		 }
-			        		
-			        	 }
-			        	 
-			         }else if(p1.x > p2.x){//向左连
-			        	 canvas.drawBitmap(dstbmp, p2.x + iconSize / 2, p1.y, null);
-			        	 if(path.length == 3 || path.length == 4){
-			        		 if(i == 0){
-			        			 lastOrientation = "left";
-			        		 }else if(i == 1){
-			        			 if("up".equals(lastOrientation)){
-			        				 canvas.drawBitmap(leftBottomBm, p1.x, p1.y , null);
-			        			 }else if("down".equals(lastOrientation)){
-			        				 canvas.drawBitmap(leftTopCornerBm, p1.x , p1.y , null);
-			        			 }else if("left".equals(lastOrientation)){
-			        			 }else if("right".equals(lastOrientation)){
-			        			 }
-			        			 if(path.length == 4){
-			        				 lastOrientation = "left";
-				        		 }
-			        		 }else if(i == 2){
-			        			 if("up".equals(lastOrientation)){
-			        				 canvas.drawBitmap(leftBottomBm, p1.x, p1.y , null);
-			        			 }else if("down".equals(lastOrientation)){
-			        				 canvas.drawBitmap(leftTopCornerBm, p1.x , p1.y , null);
-			        			 }else if("left".equals(lastOrientation)){
-			        			 }else if("right".equals(lastOrientation)){
-			        			 }
-			        		 }
-			        	 }
-			        	
-			         }else if(p1.x < p2.x){//向右连
-			        	 canvas.drawBitmap(dstbmp, p1.x + iconSize / 2, p1.y, null);
-			        	 if(path.length == 3 || path.length == 4){
-			        		 if(i == 0){
-			        			 lastOrientation = "right";
-			        		 }else if(i == 1){
-			        			 if("up".equals(lastOrientation)){
-			        				 canvas.drawBitmap(rightBottomBm, p1.x, p1.y , null);
-			        			 }else if("down".equals(lastOrientation)){
-			        				 canvas.drawBitmap(rightTopBm, p1.x , p1.y , null);
-			        			 }else if("left".equals(lastOrientation)){
-			        			 }else if("right".equals(lastOrientation)){
-			        			 }
-			        			 
-			        			 if(path.length == 4){
-			        				 lastOrientation = "right";
-				        		 }
-			        		 }else if(i == 2){
-			        			 if("up".equals(lastOrientation)){
-			        				 canvas.drawBitmap(rightBottomBm, p1.x, p1.y , null);
-			        			 }else if("down".equals(lastOrientation)){
-			        				 canvas.drawBitmap(rightTopBm, p1.x , p1.y , null);
-			        			 }else if("left".equals(lastOrientation)){
-			        			 }else if("right".equals(lastOrientation)){
-			        			 }
-			        		 }
-			        		 
-			        	 }
-			        	 
-			         }*/
 				}
-//				long duration = System.currentTimeMillis() - beginTime;
-//				Log.i("time", ""+duration);
 			}
 			
 			//第二种模式，每消一对加一刻时间
@@ -478,8 +327,8 @@ public class BoardView extends View {
 	 * @param y 数组中的纵坐标
 	 * @return 将图标在数组中的坐标转成在屏幕上的真实坐标
 	 */
-	public Point indextoScreen(int x,int y){
-		return new Point(x* iconSize , y * iconSize );
+	public PointF indextoScreen(int x,int y){
+		return new PointF((x - 0.5f) * iconSize , (float)y * iconSize );
 	}
 	/**
 	 * 工具方法
@@ -488,8 +337,9 @@ public class BoardView extends View {
 	 * @return 将图标在屏幕中的坐标转成在数组上的虚拟坐标
 	 */
 	public Point screenToindex(int x,int y){
-		int ix = x/ iconSize;
+		int ix = (x+iconSize/2) / iconSize;
 		int iy = y / iconSize;
+//		Log.i("screenToindex", "iconSize ="+iconSize +", ix ="+ix+", iy ="+iy);
 		if(ix < xCount && iy <yCount){
 			return new Point( ix,iy);
 		}else{
