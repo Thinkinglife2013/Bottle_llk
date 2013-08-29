@@ -57,12 +57,15 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		private List<Guan> guanList;
 		private Bitmap bmSrc;
 		private int level;
+		private SharedPreferences starPreference;
 
 		public GridAdapter(Context context, List<Guan> guanList, int level) {
 			layoutInflater = LayoutInflater.from(context);
 			this.guanList = guanList;
 			bmSrc = BitmapFactory.decodeResource(context.getResources(),
 					R.drawable.number);
+			
+			starPreference = context.getSharedPreferences("star", 0);
 			
 //			if(level - 12 > 0){
 //				this.level = level - 12;
@@ -109,10 +112,33 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 					.findViewById(R.id.lock);
 			LinearLayout guanLayout = (LinearLayout) convetView
 					.findViewById(R.id.guan_num);
+			LinearLayout starGroup = (LinearLayout) convetView
+					.findViewById(R.id.star_group);
+			
 			
 			Guan guan = (Guan) getItem(position);
 
 			String guanNum = guan.getNumStr();
+			
+			int starCount = starPreference.getInt(Integer.parseInt(guanNum)+"star_count", 0);
+			if(starCount > 0){
+				starGroup.setVisibility(View.VISIBLE);
+				if(starCount >= 1){
+					ImageView starOne = (ImageView) convetView
+							.findViewById(R.id.star_one);
+					starOne.setVisibility(View.VISIBLE);
+					if(starCount >= 2){
+						ImageView starTwo = (ImageView) convetView
+								.findViewById(R.id.star_two);
+						starTwo.setVisibility(View.VISIBLE);
+						if(starCount == 3){
+							ImageView starThree = (ImageView) convetView
+									.findViewById(R.id.star_three);
+							starThree.setVisibility(View.VISIBLE);
+						}
+					}
+				}
+			}
 			
 			if(Integer.parseInt(guanNum) <= level){
 				guanLayout.setVisibility(View.VISIBLE);

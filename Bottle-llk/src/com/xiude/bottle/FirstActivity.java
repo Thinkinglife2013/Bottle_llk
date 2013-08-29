@@ -5,18 +5,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 
-import com.umeng.newxp.common.ExchangeConstants;
 import com.umeng.newxp.controller.ExchangeDataService;
-import com.umeng.newxp.controller.XpListenersCenter.NTipsChangedListener;
-import com.umeng.newxp.view.ExchangeViewManager;
 import com.umeng.update.UmengUpdateAgent;
 import com.xiude.view.MyClickListener;
 
@@ -29,7 +24,7 @@ public class FirstActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first_view);
-		
+        
 		BgMediaPlayer.startMedia(this);
 		
 		//ÓÑÃË×Ô„Ó¸üÐÂ begin

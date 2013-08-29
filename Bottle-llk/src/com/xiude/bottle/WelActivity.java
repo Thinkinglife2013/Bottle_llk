@@ -63,11 +63,13 @@ public class WelActivity extends Activity
 			//胜利
 			case 0:{
 				int maxCount = Constants.maxCount; //最大连击数
-				Log.i("progress", progress.getProgress()+"");
+				Log.i("progress", progress.getMax()+"");
+				
+				//注意progress是剩余时间
 				int integral = progress.getProgress() / 10 * 3; 
 				integral += (maxCount * 10);  //当前这一关的积分
 				
-				WinDialog dialog = new WinDialog(WelActivity.this,gameView,gameView.getRefeshTimeCount() * 100 / 1000, integral, guan, maxCount);
+				WinDialog dialog = new WinDialog(WelActivity.this,gameView,gameView.getRefeshTimeCount() * 100 / 1000, integral, guan, maxCount, progress);
 				LayoutParams lay = dialog.getWindow().getAttributes();  
 		        setParams(lay); 
 				dialog.show();

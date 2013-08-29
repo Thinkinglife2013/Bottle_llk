@@ -15,32 +15,33 @@
 	  	  <LinearLayout
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
-	      android:layout_marginTop="0dip"
+	      android:layout_gravity="top"
+	      android:layout_marginTop="20dip"
 	      android:orientation="horizontal" >
 
-	      <ImageButton
+	      <ImageView
 	          android:id="@+id/star_one"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:layout_gravity="center_vertical"
 	          android:layout_marginLeft="0dp"
-	          android:background="@drawable/next_selector" />
+	          android:background="@drawable/star_one" />
 
-	      <ImageButton
+	      <ImageView
 	          android:id="@+id/star_two"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:layout_gravity="center_vertical"
-	          android:layout_marginLeft="30dp"
-	          android:background="@drawable/back_selector" />
+	          android:layout_marginLeft="10dp"
+	          android:background="@drawable/star_none_two" />
 
-	      <ImageButton
+	      <ImageView
 	          android:id="@+id/star_three"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:layout_gravity="center_vertical"
-	          android:layout_marginLeft="30dp"
-	          android:background="@drawable/replay_selector" />
+	          android:layout_marginLeft="10dp"
+	          android:background="@drawable/star_none_three" />
 	  </LinearLayout>
 	  
 	   <TextView 
@@ -49,15 +50,13 @@
 	  	   android:layout_width="wrap_content"
 	  	   android:layout_height="wrap_content" 
 	  	   android:textColor="#c0000000"
-	  	   android:textSize="25dp"
-	  	   
-	  	   android:text="1000"
+	  	   android:textSize="35dp"
+	  	   android:layout_marginTop="15dp"
 	  	   />
 	   	 
 	  <RelativeLayout 
 	      android:layout_gravity="bottom|center_horizontal"
-	      android:layout_marginTop="35dp"
-	      android:layout_marginRight="0dp"
+	      android:layout_marginBottom="20dp"
 		  android:layout_width="wrap_content"
 		  android:layout_height="wrap_content">
 	

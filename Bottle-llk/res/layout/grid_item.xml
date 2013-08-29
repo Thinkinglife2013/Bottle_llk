@@ -47,23 +47,30 @@
 		
 	</FrameLayout> 
 		<LinearLayout 
+		   android:id="@+id/star_group"
 		   android:layout_width="wrap_content"
 	       android:layout_height="wrap_content"
 	       android:orientation="horizontal"
-	       android:gravity="bottom"
+	       android:gravity="bottom|center_horizontal"
 	       android:visibility="gone"
 	       >
 	        <ImageView 
+	            android:id="@+id/star_one"
 	            android:layout_width="25dp"
 	       		android:layout_height="25dp"
-	       		android:background="@drawable/star"/>
+	       		android:background="@drawable/star"
+	       		android:visibility="gone"/>
 	        <ImageView 
+	            android:id="@+id/star_two"
 	            android:layout_width="25dp"
 	       		android:layout_height="25dp"
-	       		android:background="@drawable/star"/>
+	       		android:background="@drawable/star"
+	       		android:visibility="gone"/>
 	        <ImageView 
+	            android:id="@+id/star_three"
 	            android:layout_width="25dp"
 	       		android:layout_height="25dp"
-	       		android:background="@drawable/star"/>
+	       		android:background="@drawable/star"
+	       		android:visibility="gone"/>
 	    </LinearLayout>
 </LinearLayout>
