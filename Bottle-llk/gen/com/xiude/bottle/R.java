@@ -341,6 +341,7 @@ public final class R {
         public static final int bg_music=0x7f090009;
         public static final int bottom=0x7f090078;
         public static final int challege_mode=0x7f090005;
+        public static final int custom_integral=0x7f090074;
         public static final int custom_mode=0x7f090004;
         public static final int divider=0x7f09003a;
         public static final int dlCon=0x7f090046;
@@ -357,7 +358,6 @@ public final class R {
         public static final int img3=0x7f090013;
         public static final int infinite_mode=0x7f090006;
         public static final int integral=0x7f090082;
-        public static final int jifen=0x7f090074;
         public static final int level=0x7f090071;
         public static final int line_message=0x7f090080;
         public static final int list=0x7f090019;

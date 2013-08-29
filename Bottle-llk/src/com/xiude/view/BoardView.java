@@ -21,6 +21,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiude.bottle.Constants;
@@ -76,6 +77,29 @@ public class BoardView extends View {
 	 * selected 选中的图标
 	 */
 	protected List<Point> selected = new ArrayList<Point>();
+	
+	/**
+	 * customIntegral 经典模式的积分
+	 */
+	private int customIntegral;
+	
+	private TextView customIntegralView; //第一种经典模式的积分（右上角）
+	
+	public TextView getCustomIntegralView() {
+		return customIntegralView;
+	}
+
+	public void setCustomIntegralView(TextView customIntegralView) {
+		this.customIntegralView = customIntegralView;
+	}
+	
+	public int getCustomIntegral() {
+		return customIntegral;
+	}
+
+	public void setCustomIntegral(int customIntegral) {
+		this.customIntegral = customIntegral;
+	}
 	
 	public BoardView(Context context,AttributeSet atts) {
 		super(context,atts);
@@ -187,7 +211,6 @@ public class BoardView extends View {
 //							Log.i("map", "map > 0");
 							final PointF p = indextoScreen(x, y);
 							final int mapXy = map[x][y];
-							
 						
 							canvas.drawBitmap(icons[mapXy], p.x,p.y,null);
 							
@@ -211,6 +234,10 @@ public class BoardView extends View {
 		 * 绘制连通路径，然后将路径以及两个图标清除
 		 */
 		if (path != null && path.length >= 2) {
+			//经典模式，每连一个加10分，并显示
+			customIntegral += 10;
+			customIntegralView.setText(String.valueOf(customIntegral));
+			
 			if(!isFind){
 				String lastOrientation = null;
 				
@@ -263,7 +290,13 @@ public class BoardView extends View {
 				
 				Constants.lastTime = curTime;
 				if(duration < 2000){
-					final Toast toast = Toast.makeText(this.getContext(), "连击数："+(++Constants.lineCount), 0);
+					int lineCount = ++Constants.lineCount;
+					
+					final Toast toast = Toast.makeText(this.getContext(), "连击数："+lineCount, 0);
+					
+					//连击数计算总得分，并显示出来
+					customIntegral += lineCount * 30;
+					customIntegralView.setText(String.valueOf(customIntegral));
 					
 //					Runnable r = new Runnable() {
 //						

@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.xiude.bottle.BaseActivity;
 import com.xiude.bottle.FirstActivity;
@@ -66,7 +67,7 @@ public class GameView extends BoardView {
 //			player.setLooping(true);//…Ë÷√—≠ª∑≤•∑≈
 //		}
 	}
-	
+
 	public static final int ID_SOUND_CHOOSE = 0;
 	public static final int ID_SOUND_DISAPEAR = 1;
 	public static final int ID_SOUND_WIN = 4;
