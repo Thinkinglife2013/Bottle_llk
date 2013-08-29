@@ -49,6 +49,8 @@ public class WelActivity extends Activity
 	private TextView textFindNum;
 	private int guan; //当前第几关
 	private int curTopIntegral; //当前总积分
+	private TextView customIntegralView; //第一种经典模式的积分（右上角）
+	private TextView customDialogIntegralView; //第一种经典模式的积分（弹出框）
 	
 	//播放游戏前音乐的player
 	public static MediaPlayer player;
@@ -61,6 +63,7 @@ public class WelActivity extends Activity
 			//胜利
 			case 0:{
 				int maxCount = Constants.maxCount; //最大连击数
+				Log.i("progress", progress.getProgress()+"");
 				int integral = progress.getProgress() / 10 * 3; 
 				integral += (maxCount * 10);  //当前这一关的积分
 				
@@ -70,6 +73,7 @@ public class WelActivity extends Activity
 				dialog.show();
 				
 				if(FirstActivity.gameMode != 3){ //第一二种模式，保存最高关数
+					
 					SharedPreferences levelPreference = getSharedPreferences("level", 0);
 					int level = 1;
 					if(FirstActivity.gameMode == 1){
@@ -116,6 +120,9 @@ public class WelActivity extends Activity
 				int guanNum = msg.arg1;
 				guan = guanNum;
 				
+				//经典模式，初始得分为0
+				gameView.setCustomIntegral(0);
+				
 				//如果当前为第一关，积分置为0
 				if(guanNum == 1){
 					curTopIntegral = 0;
@@ -136,9 +143,15 @@ public class WelActivity extends Activity
         
         BgMediaPlayer.pauseMedia(); //暂停背景音乐的播放
         
+        customIntegralView = (TextView)findViewById(R.id.custom_integral);
+        
         btnRefresh = (ImageButton) findViewById(R.id.refresh_btn);
         btnTip = (ImageButton) findViewById(R.id.tip_btn);
         gameView = (GameView) findViewById(R.id.game_view);
+        
+        //用以显示得分
+        gameView.setCustomIntegralView(customIntegralView);
+        
         progress = (SeekBar) findViewById(R.id.timer);
         textRefreshNum = (TextView) findViewById(R.id.text_refresh_num);
         textTipNum = (TextView) findViewById(R.id.text_tip_num);
