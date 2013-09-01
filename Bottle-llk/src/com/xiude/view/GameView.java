@@ -76,6 +76,10 @@ public class GameView extends BoardView {
 	public static final int ID_SOUND_TIP = 7;
 	public static final int ID_SOUND_ERROR = 8;
 	public static final int ID_SOUND_READYGO = 9;
+	public static final int ID_SOUND_STAR1 = 10;
+	public static final int ID_SOUND_STAR2 = 11;
+	public static final int ID_SOUND_STAR3 = 12;
+	public static final int ID_SOUND_CUSTOM_RECORD = 13;
 	
 	private SeekBar progress;
 	public void setProgress(SeekBar pro){
@@ -138,7 +142,7 @@ public class GameView extends BoardView {
 			initFourMap();
 		}else if(guan == 5){
 			if(FirstActivity.gameMode == 1){//第一種模式
-				totalTime = 500;
+				totalTime = 530;
 			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 230;
 			}
@@ -152,7 +156,7 @@ public class GameView extends BoardView {
 			initSixMap();
 		}else if(guan == 7){
 			if(FirstActivity.gameMode == 1){//第一種模式
-				totalTime = 600;
+				totalTime = 650;
 			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 270;
 			}
@@ -173,7 +177,7 @@ public class GameView extends BoardView {
 			initNightMap();
 		}else if(guan == 10){
 			if(FirstActivity.gameMode == 1){//第一種模式
-				totalTime = 800;
+				totalTime = 820;
 			}else if(FirstActivity.gameMode == 2 || FirstActivity.gameMode == 3){//第二種模式
 				totalTime = 350;
 			}
@@ -367,6 +371,10 @@ public class GameView extends BoardView {
 	        soundPlay.loadSfx(context, R.raw.item2, ID_SOUND_TIP);
 	        soundPlay.loadSfx(context, R.raw.alarm, ID_SOUND_ERROR);
 	        soundPlay.loadSfx(context, R.raw.ready_go, ID_SOUND_READYGO);
+	        soundPlay.loadSfx(context, R.raw.star_1, ID_SOUND_STAR1);
+	        soundPlay.loadSfx(context, R.raw.star_2, ID_SOUND_STAR2);
+	        soundPlay.loadSfx(context, R.raw.star_3, ID_SOUND_STAR3);
+	        soundPlay.loadSfx(context, R.raw.custom_record, ID_SOUND_CUSTOM_RECORD);
 	}
 	
 	public static void destorySound(){
@@ -1765,7 +1773,7 @@ public class GameView extends BoardView {
 			Help--;
 			toolsChangedListener.onTipChanged(Help);
 			drawLine(path.toArray(new Point[] {}));
-			refreshHandler.sleep(100);
+			refreshHandler.sleep(300);
 		}
 	}
 	
@@ -1800,7 +1808,7 @@ public class GameView extends BoardView {
 			Find--;
 			toolsChangedListener.onFindChanged(Find);
 			tip(path.toArray(new Point[]{}));
-			refreshHandler.sleep(100);
+			refreshHandler.sleep(300);
 		}
 	}
 

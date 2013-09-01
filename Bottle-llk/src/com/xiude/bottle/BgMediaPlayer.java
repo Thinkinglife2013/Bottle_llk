@@ -4,6 +4,7 @@ import com.xiude.bottle.R;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 public class BgMediaPlayer {
 	private static MediaPlayer m;
@@ -37,8 +38,10 @@ public class BgMediaPlayer {
 	
 	public static void startMedia(Context context){
 		if(m != null){
+			Log.i("media", "media = null");
 			m.release();
 		}
+		Log.i("media", "startMedia");
 		m = new MediaPlayer();
 		m.reset();
 

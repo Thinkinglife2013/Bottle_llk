@@ -2,13 +2,15 @@ package com.xiude.bottle;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.xiude.view.GameView;
-import com.xiude.view.GameView.RefreshTime;
+import com.xiude.view.MyTouchListener;
 
 public class PauseDialog extends Dialog implements OnClickListener{
 
@@ -40,6 +42,57 @@ public class PauseDialog extends Dialog implements OnClickListener{
 		btn_replay.setOnClickListener(this);
 		btn_play.setOnClickListener(this);
 		this.setCancelable(false);
+		
+		
+		//两个音乐按钮
+		final ImageView bgMcView = (ImageView)findViewById(R.id.bg_music);
+		bgMcView.setOnTouchListener(new MyTouchListener(context) {
+			
+			@Override
+			public void postOnTouch() {
+				if(BaseActivity.isAllBgMusicClickPause == true){
+					BaseActivity.isAllBgMusicClickPause = false;
+//					BgMediaPlayer.restartMedia();
+					
+					bgMcView.setImageResource(R.drawable.music_yes);
+				}else{
+					BaseActivity.isAllBgMusicClickPause = true;
+					
+//					BgMediaPlayer.pauseMedia(true);
+					bgMcView.setImageResource(R.drawable.music_no);
+				}
+			}
+		});
+		
+		final ImageView gameMcView = (ImageView)findViewById(R.id.game_music);
+		gameMcView.setOnTouchListener(new MyTouchListener(context) {
+			
+			@Override
+			public void postOnTouch() {
+				if(BaseActivity.isGameBgPause == true){
+					BaseActivity.isGameBgPause = false;
+					GameView.initSound(PauseDialog.this.context);
+					gameMcView.setImageResource(R.drawable.laba_yes);
+				}else{
+					BaseActivity.isGameBgPause = true;
+					GameView.soundPlay = null;
+					gameMcView.setImageResource(R.drawable.laba_no);
+				}
+			}
+		});
+		
+		if(!BaseActivity.isAllBgMusicClickPause){
+			bgMcView.setImageResource(R.drawable.music_yes);
+		}else{
+			bgMcView.setImageResource(R.drawable.music_no);
+		}
+		
+		if(!BaseActivity.isGameBgPause){
+			gameMcView.setImageResource(R.drawable.laba_yes);
+		}else{
+			gameMcView.setImageResource(R.drawable.laba_no);
+		}
+		
 	}
 
 	@Override
@@ -47,27 +100,11 @@ public class PauseDialog extends Dialog implements OnClickListener{
 		
 		switch(v.getId()){
 		case R.id.menu_imgbtn:
-	/*		Dialog dialog = new AlertDialog.Builder(context)
-            .setIcon(R.drawable.icon)
-            .setTitle(R.string.quit)
-            .setMessage(R.string.sure_quit)
-            .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                	((WelActivity)context).quit();
-                }
-            })
-            .setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                	restartGame();
-                }
-            })
-            .create();
-			dialog.show();*/
 			((WelActivity)context).quit();
 			break;
 		case R.id.replay_imgbtn:
 			gameview.startPlay(guan);
-			gameview.setVisibility(View.VISIBLE);
+			rePlayMusic();
 			break;
 		case R.id.play:
 			restartGame();
@@ -77,13 +114,28 @@ public class PauseDialog extends Dialog implements OnClickListener{
 	}
 	
 	private void restartGame(){
-		gameview.setVisibility(View.VISIBLE);
-		
-		if(WelActivity.player != null){
-			WelActivity.player.start();
-		}
+		rePlayMusic();
 		gameview.startTimer();
 		gameview.refreshTime = gameview.new RefreshTime();
 		gameview.refreshTime.start();
+	}
+	
+	private void rePlayMusic(){
+		gameview.setVisibility(View.VISIBLE);
+		
+		if(WelActivity.player != null && !BaseActivity.isAllBgMusicClickPause){
+			try{
+				WelActivity.player.start();
+			}catch(Exception e){
+				e.printStackTrace();
+				WelActivity.player = MediaPlayer.create(context, R.raw.back2new); 
+				WelActivity.player.setLooping(true);//设置循环播放
+				WelActivity.player.start();
+			}
+		}else if(WelActivity.player == null && !BaseActivity.isAllBgMusicClickPause){
+			WelActivity.player = MediaPlayer.create(context, R.raw.back2new); 
+			WelActivity.player.setLooping(true);//设置循环播放
+			WelActivity.player.start();
+		}
 	}
 }

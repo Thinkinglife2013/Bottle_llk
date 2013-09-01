@@ -3,7 +3,6 @@ package com.xiude.util;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import com.xiude.bottle.Constants;
 import com.xiude.bottle.FirstActivity;
 import com.xiude.bottle.R;
-import com.xiude.bottle.SelectModeActivity;
 import com.xiude.bottle.WelActivity;
 import com.xiude.view.GameView;
 
@@ -39,6 +37,7 @@ public class WinDialog extends Dialog implements OnClickListener{
 		TextView integralView = (TextView) findViewById(R.id.integral);
 		ImageView starTwoView = (ImageView) findViewById(R.id.star_two);
 		ImageView starThreeView = (ImageView) findViewById(R.id.star_three);
+		ImageView newRecordView = (ImageView) findViewById(R.id.new_record);
 		
 		btn_next.setVisibility(View.VISIBLE);
 		
@@ -52,12 +51,26 @@ public class WinDialog extends Dialog implements OnClickListener{
 		}*/
 		
 		//计算积分
-		if(SelectModeActivity.gameMode == 3){
+		if(FirstActivity.gameMode == 3){
 			integralView.setText(context.getString(R.string.integral).replace("$", String.valueOf(integral)));
-		}else if(SelectModeActivity.gameMode == 1){
+		}else if(FirstActivity.gameMode == 1){
 			//经典模式，设置得分
 			int score = gameview.getCustomIntegral();
 			integralView.setText(String.valueOf(score));
+			
+			SharedPreferences customRecordPreference = context.getSharedPreferences("custom_record", 0);
+			
+			int record = customRecordPreference.getInt("record", 0);
+			if(score > record){
+				newRecordView.setVisibility(View.VISIBLE);
+				if(GameView.soundPlay != null)
+					GameView.soundPlay.play(GameView.ID_SOUND_CUSTOM_RECORD, 0);
+				
+				customRecordPreference.edit().putInt("record", score).commit();
+			}else{
+				newRecordView.setVisibility(View.GONE);
+			}
+		
 			
 			int MaxProgress = seekBar.getMax();
 			int progress = seekBar.getProgress();
@@ -66,14 +79,20 @@ public class WinDialog extends Dialog implements OnClickListener{
 			
 			SharedPreferences starPreference = context.getSharedPreferences("star", 0);
 			if(percent > 0.5){
+				if(GameView.soundPlay != null)
+					GameView.soundPlay.play(GameView.ID_SOUND_STAR3, 0);
 				starTwoView.setBackgroundResource(R.drawable.star_two);
 				starThreeView.setBackgroundResource(R.drawable.star_three);
 				
 				starPreference.edit().putInt(guan+"star_count", 3).commit();
 			}else if(percent > 0.33){
+				if(GameView.soundPlay != null)
+					GameView.soundPlay.play(GameView.ID_SOUND_STAR2, 0);
 				starTwoView.setBackgroundResource(R.drawable.star_two);
 				starPreference.edit().putInt(guan+"star_count", 2).commit();
 			}else{
+				if(GameView.soundPlay != null)
+					GameView.soundPlay.play(GameView.ID_SOUND_STAR1, 0);
 				starPreference.edit().putInt(guan+"star_count", 1).commit();
 			}
 		}

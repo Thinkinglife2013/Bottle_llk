@@ -3,14 +3,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
-    android:background="@drawable/select_mode"
     >
 
 	<FrameLayout
 	    android:id="@+id/ll"
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content" 
-	    android:background="@drawable/infinite_dialog"
 	    android:layout_gravity="center"
 	    >
 	    <LinearLayout 

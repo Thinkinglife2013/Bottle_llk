@@ -30,6 +30,7 @@ public class BaseActivity extends Activity {
 		super.onResume();
 		if (isPausePreMedia == true && isAllBgMusicClickPause == false) {
 //			mBinder.restartMedia();
+			Log.i("base", "onResume");
 			BgMediaPlayer.restartMedia();
 		}
 	}
@@ -54,7 +55,7 @@ public class BaseActivity extends Activity {
 						e.printStackTrace();
 					}
 					if(isFront == false){
-						Log.i("base", "pause");
+						Log.i("base", "isAllBgMusicClickPause ="+isAllBgMusicClickPause);
 //						mBinder.pauseMedia(false);
 						BgMediaPlayer.pauseMedia(isAllBgMusicClickPause);
 					}

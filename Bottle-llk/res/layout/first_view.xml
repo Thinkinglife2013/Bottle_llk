@@ -14,7 +14,7 @@
 	        android:id="@+id/custom_mode"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
-	    	android:src="@drawable/custom_selector"
+	    	android:background="@drawable/custom_mode"
 	    	android:layout_gravity="center_horizontal"
 	    	android:layout_marginTop="20dp"
 	    	android:layout_marginBottom="15dp"/>
@@ -22,14 +22,14 @@
 	        android:id="@+id/challege_mode"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
-	    	android:src="@drawable/challege_selector"
+	    	android:background="@drawable/challege_mode"
 	    	android:layout_marginTop="20dp"
 	    	android:layout_marginLeft="30dp"/>
 	     <ImageView 
 	        android:id="@+id/infinite_mode"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
-	    	android:src="@drawable/infinite_selector"
+	    	android:background="@drawable/infinite_mode"
 	    	android:layout_gravity="right"
 	    	android:layout_marginTop="0dp"
 	    	android:layout_marginRight="30dp"/>
@@ -37,7 +37,7 @@
 	        android:id="@+id/mengmo_mode"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
-	    	android:src="@drawable/mengmo_selector"
+	    	android:background="@drawable/mengmo_mode"
 	    	android:layout_gravity="center_horizontal"
 	    	android:layout_marginTop="20dp"
 	    	android:layout_marginRight="20dp"/>
@@ -55,7 +55,7 @@
               android:id="@+id/game_music"
              android:layout_width="wrap_content"
 	   		 android:layout_height="wrap_content"
-	   		 android:src="@drawable/laba_yes"
+	   		 android:background="@drawable/laba_yes"
 	   		 android:layout_marginRight="10dp"
 	   		 android:layout_alignParentRight="true"/>
          
@@ -63,7 +63,7 @@
              android:id="@+id/bg_music"
              android:layout_width="wrap_content"
 	   		 android:layout_height="wrap_content"
-	   		 android:src="@drawable/music_yes"
+	   		 android:background="@drawable/music_yes"
 	   		 android:layout_toLeftOf="@id/game_music"
 	   		 android:layout_marginRight="25dp"
 	   		 android:layout_marginTop="30dp"/>

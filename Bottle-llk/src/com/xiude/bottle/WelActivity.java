@@ -50,7 +50,6 @@ public class WelActivity extends Activity
 	private int guan; //当前第几关
 	private int curTopIntegral; //当前总积分
 	private TextView customIntegralView; //第一种经典模式的积分（右上角）
-	private TextView customDialogIntegralView; //第一种经典模式的积分（弹出框）
 	
 	//播放游戏前音乐的player
 	public static MediaPlayer player;
@@ -124,6 +123,7 @@ public class WelActivity extends Activity
 				
 				//经典模式，初始得分为0
 				gameView.setCustomIntegral(0);
+				gameView.getCustomIntegralView().setText("0");
 				
 				//如果当前为第一关，积分置为0
 				if(guanNum == 1){
@@ -148,20 +148,33 @@ public class WelActivity extends Activity
         customIntegralView = (TextView)findViewById(R.id.custom_integral);
         
         btnRefresh = (ImageButton) findViewById(R.id.refresh_btn);
+        btnRefresh.setVisibility(View.INVISIBLE);
+        
         btnTip = (ImageButton) findViewById(R.id.tip_btn);
+        btnTip.setVisibility(View.INVISIBLE);
+        
         gameView = (GameView) findViewById(R.id.game_view);
         
         //用以显示得分
         gameView.setCustomIntegralView(customIntegralView);
+        customIntegralView.setVisibility(View.INVISIBLE);
         
         progress = (SeekBar) findViewById(R.id.timer);
         textRefreshNum = (TextView) findViewById(R.id.text_refresh_num);
+        textRefreshNum.setVisibility(View.INVISIBLE);
+        
         textTipNum = (TextView) findViewById(R.id.text_tip_num);
+        textTipNum.setVisibility(View.INVISIBLE);
         
         btnPause = (ImageButton) findViewById(R.id.pause_btn);
+        btnPause.setVisibility(View.INVISIBLE);
         
         btnFind = (ImageButton) findViewById(R.id.find_btn);
+        btnFind.setVisibility(View.INVISIBLE);
+        
         textFindNum = (TextView) findViewById(R.id.text_find_num);
+        textFindNum.setVisibility(View.INVISIBLE);
+        
         levelOneView = (ImageView) findViewById(R.id.num_one);
         levelTwoView = (ImageView) findViewById(R.id.num_two);
         final ImageView readyView = (ImageView) findViewById(R.id.ready_go);
@@ -186,6 +199,7 @@ public class WelActivity extends Activity
         gameView.setOnStateListener(this);
         gameView.setOnToolsChangedListener(this);
         
+        //判断音乐是否暂停
         if(!BaseActivity.isGameBgPause){
         	GameView.initSound(this);
         	
@@ -202,7 +216,8 @@ public class WelActivity extends Activity
 					e.printStackTrace();
 				}
 				
-				GameView.soundPlay.play(GameView.ID_SOUND_READYGO, 0);
+				if(GameView.soundPlay != null)
+					GameView.soundPlay.play(GameView.ID_SOUND_READYGO, 0);
 
 				runOnUiThread(new Runnable() {
 					
@@ -262,26 +277,6 @@ public class WelActivity extends Activity
         player.setLooping(true);//设置循环播放
         player.start();*/
         
-//        new Thread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				try {
-//					Thread.sleep(1400);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				
-//				runOnUiThread(new Runnable() {
-//					
-//					@Override
-//					public void run() {
-					
-//					}
-//				});
-//			}
-//		}).start();
-      
     }
     
     /**设置每关的关数
@@ -344,15 +339,22 @@ public class WelActivity extends Activity
     
     @Override
     protected void onRestart() {
-    	super.onResume();
+    	super.onRestart();
+    	Log.i("welActivity", "onRestart");
     	restartGame();
     }
+    
+    @Override
+	protected void onResume() {
+    	Log.i("welActivity", "onResume");
+		super.onResume();
+	}
     
 	private void restartGame(){
 		gameView.setVisibility(View.VISIBLE);
 		
 		if(player != null){
-			if(!player.isPlaying()){
+			if(!player.isPlaying() && !BaseActivity.isAllBgMusicClickPause){
 				player.start();
 			}
 		}
@@ -364,9 +366,16 @@ public class WelActivity extends Activity
 		}
 	}
 	
+	@Override
+	protected void onPause() {
+		Log.i("welActivity", "onPause");
+		super.onPause();
+	}
+	
     @Override
     protected void onStop() {
-    	super.onPause();
+    	Log.i("welActivity", "onStop");
+    	super.onStop();
     	gameView.setMode(GameView.PAUSE);
     }
     
@@ -388,6 +397,7 @@ public class WelActivity extends Activity
 //		btnPlay.startAnimation(scaleOut);
 //		btnPlay.setVisibility(View.GONE);
 //		imgTitle.setVisibility(View.GONE);
+    	customIntegralView.setVisibility(View.VISIBLE);
 		gameView.setVisibility(View.VISIBLE);
 		
 		btnRefresh.setVisibility(View.VISIBLE);
@@ -397,10 +407,14 @@ public class WelActivity extends Activity
 		textRefreshNum.setVisibility(View.VISIBLE);
 		textTipNum.setVisibility(View.VISIBLE);
 		textFindNum.setVisibility(View.VISIBLE);
+		btnFind.setVisibility(View.VISIBLE);
+		btnPause.setVisibility(View.VISIBLE);
 		
 		btnRefresh.startAnimation(transIn);
 		btnTip.startAnimation(transIn);
 		gameView.startAnimation(transIn);
+		btnFind.startAnimation(transIn);
+		btnPause.startAnimation(transIn);
 //		player.pause();
 
     }
@@ -453,7 +467,7 @@ public class WelActivity extends Activity
 			break;
 		case GameView.PAUSE:
 //			player.stop();
-			if(player != null){
+			if(player != null && !BaseActivity.isAllBgMusicClickPause){
 				player.pause();
 			}
 	    	gameView.stopTimer();

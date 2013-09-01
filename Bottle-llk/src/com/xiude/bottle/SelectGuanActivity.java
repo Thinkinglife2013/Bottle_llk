@@ -26,7 +26,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.xiude.view.MyClickListener;
+import com.xiude.view.MyItemClickListener;
+import com.xiude.view.MyTouchListener;
 
 public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		OnPageChangeListener, OnGestureListener {
@@ -193,18 +194,16 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 	}
 	
 //	ViewGroup fatherLayout; //广告的展示位
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.guan);
 		
 		ImageView backView = (ImageView)findViewById(R.id.back);
-		backView.setOnClickListener(new MyClickListener(this) {
+		backView.setOnTouchListener(new MyTouchListener(this) {
 			
 			@Override
-			public void onClick(View v) {
-				super.onClick(v);
+			public void postOnTouch() {
 				finish();
 			}
 		});
@@ -243,11 +242,12 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		gridAdapter = new GridAdapter(this, guanList, level);
 		gridView.setAdapter(gridAdapter);
 		
-		gridView.setOnItemClickListener(new OnItemClickListener() {
+		gridView.setOnItemClickListener(new MyItemClickListener(this) {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long arg3) {
+				super.onItemClick(parent, view, position, arg3);
 				Guan guan = (Guan)parent.getItemAtPosition(position);
 				String guanNum = guan.getNumStr();
 				int num = Integer.parseInt(guanNum);
@@ -275,11 +275,12 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		GridAdapter gridAdapter2 = new GridAdapter(this, guanList2, level);
 		gridView2.setAdapter(gridAdapter2);
 		
-		gridView2.setOnItemClickListener(new OnItemClickListener() {
+		gridView2.setOnItemClickListener(new MyItemClickListener(this) {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long arg3) {
+				super.onItemClick(parent, view, position, arg3);
 				Guan guan = (Guan)parent.getItemAtPosition(position);
 				String guanNum = guan.getNumStr();
 				int num = Integer.parseInt(guanNum);
@@ -307,11 +308,12 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		GridAdapter gridAdapter3 = new GridAdapter(this, guanList3, level);
 		gridView3.setAdapter(gridAdapter3);
 		
-		gridView3.setOnItemClickListener(new OnItemClickListener() {
+		gridView3.setOnItemClickListener(new MyItemClickListener(this) {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long arg3) {
+				super.onItemClick(parent, view, position, arg3);
 				Guan guan = (Guan)parent.getItemAtPosition(position);
 				String guanNum = guan.getNumStr();
 				int num = Integer.parseInt(guanNum);

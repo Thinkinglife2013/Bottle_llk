@@ -5,20 +5,19 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.umeng.newxp.controller.ExchangeDataService;
 import com.umeng.update.UmengUpdateAgent;
-import com.xiude.view.MyClickListener;
+import com.xiude.view.MyTouchListener;
 
 //company test
 public class FirstActivity extends BaseActivity {
-	public static ExchangeDataService exchangeDataService;
 	public static int gameMode = 1; //当前是哪种模式
+	ImageView gameMcView;
+	ImageView bgMcView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +35,21 @@ public class FirstActivity extends BaseActivity {
 			//end
 			
 		final ImageView customMode = (ImageView)findViewById(R.id.custom_mode);
-		customMode.setOnClickListener(new MyClickListener(this){
+		customMode.setOnTouchListener(new MyTouchListener(this){
+
 			@Override
-			public void onClick(View v) {
-				super.onClick(v);
-				gameMode = 1;
-//				customMode.setBackgroundResource(R.drawable.custom_mode_press);
+			public void postOnTouch() {
+			  	FirstActivity.gameMode = 1;
 				Intent i = new Intent(FirstActivity.this, SelectGuanActivity.class);
 				startActivity(i);
 			}
 		});
 			
-		final ImageView bgMcView = (ImageView)findViewById(R.id.bg_music);
-		bgMcView.setOnClickListener(new MyClickListener(this) {
+		bgMcView = (ImageView)findViewById(R.id.bg_music);
+		bgMcView.setOnTouchListener(new MyTouchListener(this) {
 			
 			@Override
-			public void onClick(View v) {
-				super.onClick(v);
+			public void postOnTouch() {
 				if(isAllBgMusicClickPause == true){
 					isAllBgMusicClickPause = false;
 					BgMediaPlayer.restartMedia();
@@ -65,12 +62,11 @@ public class FirstActivity extends BaseActivity {
 			}
 		});
 		
-		final ImageView gameMcView = (ImageView)findViewById(R.id.game_music);
-		gameMcView.setOnClickListener(new MyClickListener(this) {
+		gameMcView = (ImageView)findViewById(R.id.game_music);
+		gameMcView.setOnTouchListener(new MyTouchListener(this) {
 			
 			@Override
-			public void onClick(View v) {
-				  super.onClick(v);
+			public void postOnTouch() {
 				if(isGameBgPause == true){
 					isGameBgPause = false;
 					gameMcView.setImageResource(R.drawable.laba_yes);
@@ -81,13 +77,25 @@ public class FirstActivity extends BaseActivity {
 			}
 		});
 		
+	
+	}
+	
+	@Override
+	protected void onResume() {
+		if(!BaseActivity.isAllBgMusicClickPause){
+			bgMcView.setImageResource(R.drawable.music_yes);
+		}else{
+			bgMcView.setImageResource(R.drawable.music_no);
+		}
+		
 		if(!isGameBgPause){
 			gameMcView.setImageResource(R.drawable.laba_yes);
 		}else{
 			gameMcView.setImageResource(R.drawable.laba_no);
 		}
+		
+		super.onResume();
 	}
-	
 	
 	@Override
 	protected void onRestart() {
@@ -98,7 +106,7 @@ public class FirstActivity extends BaseActivity {
 	
 	@Override
 	protected void onDestroy() {
-		MyClickListener.destorySound();
+		MyTouchListener.destorySound();
 		super.onDestroy();
 	}
 	
