@@ -11,16 +11,16 @@
 	    android:resizeable="true"
 	    android:smallScreens="true"
 	     />
-<!-- 友盟APPkey: 51d1960a56240b564a022dba -->
+<!-- 友盟APPkey: 522408ea56240b31050be5e0 -->
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <meta-data
          android:name="UMENG_APPKEY"
-         android:value="51d1960a56240b564a022dba" >
+         android:value="522408ea56240b31050be5e0" >
         </meta-data>
-    <meta-data
+<!--     <meta-data
           android:name="UMENG_CHANNEL"
           android:value="channel1" >
-    </meta-data>
+    </meta-data> -->
 
         <service
             android:name="com.umeng.common.net.DownloadingService"

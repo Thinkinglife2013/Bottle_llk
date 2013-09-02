@@ -46,10 +46,10 @@ public class PauseDialog extends Dialog implements OnClickListener{
 		
 		//¡Ω∏ˆ“Ù¿÷∞¥≈•
 		final ImageView bgMcView = (ImageView)findViewById(R.id.bg_music);
-		bgMcView.setOnTouchListener(new MyTouchListener(context) {
+		bgMcView.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void postOnTouch() {
+			public void onClick(View v) {
 				if(BaseActivity.isAllBgMusicClickPause == true){
 					BaseActivity.isAllBgMusicClickPause = false;
 //					BgMediaPlayer.restartMedia();
@@ -65,10 +65,10 @@ public class PauseDialog extends Dialog implements OnClickListener{
 		});
 		
 		final ImageView gameMcView = (ImageView)findViewById(R.id.game_music);
-		gameMcView.setOnTouchListener(new MyTouchListener(context) {
+		gameMcView.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void postOnTouch() {
+			public void onClick(View v) {
 				if(BaseActivity.isGameBgPause == true){
 					BaseActivity.isGameBgPause = false;
 					GameView.initSound(PauseDialog.this.context);
