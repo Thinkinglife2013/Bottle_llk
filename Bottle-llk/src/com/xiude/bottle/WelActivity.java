@@ -44,9 +44,9 @@ public class WelActivity extends Activity
 	private SeekBar progress;
 //	private MyDialog dialog;
 //	private ImageView clock;
-	private TextView textRefreshNum;
-	private TextView textTipNum;
-	private TextView textFindNum;
+	private ImageView textRefreshNum;
+	private ImageView textTipNum;
+	private ImageView textFindNum;
 	private int guan; //当前第几关
 	private int curTopIntegral; //当前总积分
 	private TextView customIntegralView; //第一种经典模式的积分（右上角）
@@ -160,10 +160,10 @@ public class WelActivity extends Activity
         customIntegralView.setVisibility(View.INVISIBLE);
         
         progress = (SeekBar) findViewById(R.id.timer);
-        textRefreshNum = (TextView) findViewById(R.id.text_refresh_num);
+        textRefreshNum = (ImageView) findViewById(R.id.text_refresh_num);
         textRefreshNum.setVisibility(View.INVISIBLE);
         
-        textTipNum = (TextView) findViewById(R.id.text_tip_num);
+        textTipNum = (ImageView) findViewById(R.id.text_tip_num);
         textTipNum.setVisibility(View.INVISIBLE);
         
         btnPause = (ImageButton) findViewById(R.id.pause_btn);
@@ -172,7 +172,7 @@ public class WelActivity extends Activity
         btnFind = (ImageButton) findViewById(R.id.find_btn);
         btnFind.setVisibility(View.INVISIBLE);
         
-        textFindNum = (TextView) findViewById(R.id.text_find_num);
+        textFindNum = (ImageView) findViewById(R.id.text_find_num);
         textFindNum.setVisibility(View.INVISIBLE);
         
         levelOneView = (ImageView) findViewById(R.id.num_one);
@@ -484,17 +484,35 @@ public class WelActivity extends Activity
 
 	@Override
 	public void onRefreshChanged(int count) {
-		textRefreshNum.setText(""+gameView.getRefreshNum());
+//		textRefreshNum.setText(""+gameView.getRefreshNum());
+		int num = gameView.getRefreshNum();
+		if(num == 0){
+			textRefreshNum.setBackgroundResource(R.drawable.tool0);
+		}else if(num == 1){
+			textRefreshNum.setBackgroundResource(R.drawable.tool1);
+		}
 	}
 
 	@Override
 	public void onTipChanged(int count) {
-		textTipNum.setText(""+gameView.getTipNum());
+//		textTipNum.setText(""+gameView.getTipNum());
+		int num = gameView.getTipNum();
+		if(num == 0){
+			textTipNum.setBackgroundResource(R.drawable.tool0);
+		}else if(num == 1){
+			textTipNum.setBackgroundResource(R.drawable.tool1);
+		}
 	}
 	
 	@Override
 	public void onFindChanged(int count) {
-		textFindNum.setText(""+gameView.getFindNum());
+		int num = gameView.getFindNum();
+		if(num == 0){
+			textFindNum.setBackgroundResource(R.drawable.tool0);
+		}else if(num == 1){
+			textFindNum.setBackgroundResource(R.drawable.tool1);
+		}
+//		textFindNum.setText(""+gameView.getFindNum());
 	}
 	
 	public void quit(){

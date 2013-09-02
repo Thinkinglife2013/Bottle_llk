@@ -39,8 +39,8 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 	private static boolean lastPicState = false;
 
 	// 引导图片资源
-	private static final int[] pics = { R.drawable.ball, R.drawable.ball,
-			R.drawable.ball };
+	private static final int[] pics = { R.drawable.lock, R.drawable.lock,
+			R.drawable.lock };
 
 	// 底部小店图片
 	private ImageView[] dots;
@@ -193,6 +193,45 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 	
+	private void showStarCount(ImageView leftStar, ImageView rightStar){
+		SharedPreferences starPreference = getSharedPreferences("star", 0);
+		int totalCount = starPreference.getInt("total_star", 0);
+		String totalStarStr = String.valueOf(totalCount);
+		
+		Bitmap bmSrc = BitmapFactory.decodeResource(getResources(),
+				R.drawable.total_star_num);
+		if (totalStarStr.length() == 1) {
+			leftStar.setVisibility(View.VISIBLE);
+			rightStar.setVisibility(View.GONE);
+
+			int num = Integer.parseInt(totalStarStr);
+			Bitmap bmDst = Bitmap.createBitmap(bmSrc,
+					num * bmSrc.getWidth() / 10, 0,
+					bmSrc.getWidth() / 10, bmSrc.getHeight());
+			leftStar.setImageBitmap(bmDst);
+		} else {
+			
+			leftStar.setVisibility(View.VISIBLE);
+			rightStar.setVisibility(View.VISIBLE);
+
+			try {
+				int num = Integer.parseInt( String.valueOf(totalStarStr.charAt(0)));
+				Bitmap bmDst = Bitmap.createBitmap(bmSrc,
+						num * bmSrc.getWidth() / 10, 0,
+						bmSrc.getWidth() / 10, bmSrc.getHeight());
+				leftStar.setImageBitmap(bmDst);
+
+				int num2 = Integer.parseInt(String.valueOf(totalStarStr.charAt(1)));
+				Bitmap bmDst2 = Bitmap.createBitmap(bmSrc,
+						num2 * bmSrc.getWidth() / 10, 0,
+						bmSrc.getWidth() / 10, bmSrc.getHeight());
+				rightStar.setImageBitmap(bmDst2);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 //	ViewGroup fatherLayout; //广告的展示位
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -208,11 +247,16 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 			}
 		});
 		
+		ImageView leftStar = (ImageView)findViewById(R.id.left_num);
+		ImageView rightStar = (ImageView)findViewById(R.id.right_num);
+		
+		//显示一共收集了几颗星星
+		showStarCount(leftStar, rightStar);
+		
 		//現在是哪種模式
 		/*Intent intent = getIntent();
 		int mode = intent.getIntExtra("gamemode", 1);
 		gameMode = mode;*/
-		
 		
 		detector = new GestureDetector(this);
 

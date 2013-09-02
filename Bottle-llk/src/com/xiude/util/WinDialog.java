@@ -78,22 +78,44 @@ public class WinDialog extends Dialog implements OnClickListener{
 			float percent = (float)progress / (float)MaxProgress;
 			
 			SharedPreferences starPreference = context.getSharedPreferences("star", 0);
+			int starCount = starPreference.getInt(guan+"star_count", 0);//当前关的星星数
 			if(percent > 0.5){
 				if(GameView.soundPlay != null)
 					GameView.soundPlay.play(GameView.ID_SOUND_STAR3, 0);
 				starTwoView.setBackgroundResource(R.drawable.star_two);
 				starThreeView.setBackgroundResource(R.drawable.star_three);
 				
-				starPreference.edit().putInt(guan+"star_count", 3).commit();
+				//如果当前关没有星星记录，才保存
+				if(starCount == 0){
+					starPreference.edit().putInt(guan+"star_count", 3).commit();
+					
+					//保存一共收集了多少颗星星
+					int totalCount = starPreference.getInt("total_star", 0);
+					totalCount += 3;
+					starPreference.edit().putInt("total_star", totalCount).commit();
+				}
 			}else if(percent > 0.33){
 				if(GameView.soundPlay != null)
 					GameView.soundPlay.play(GameView.ID_SOUND_STAR2, 0);
 				starTwoView.setBackgroundResource(R.drawable.star_two);
-				starPreference.edit().putInt(guan+"star_count", 2).commit();
+				
+				if(starCount == 0){
+					starPreference.edit().putInt(guan+"star_count", 2).commit();
+					
+					int totalCount = starPreference.getInt("total_star", 0);
+					totalCount += 2;
+					starPreference.edit().putInt("total_star", totalCount).commit();
+				}
 			}else{
 				if(GameView.soundPlay != null)
 					GameView.soundPlay.play(GameView.ID_SOUND_STAR1, 0);
-				starPreference.edit().putInt(guan+"star_count", 1).commit();
+				if(starCount == 0){
+					starPreference.edit().putInt(guan+"star_count", 1).commit();
+					
+					int totalCount = starPreference.getInt("total_star", 0);
+					totalCount += 1;
+					starPreference.edit().putInt("total_star", totalCount).commit();
+				}
 			}
 		}
 		

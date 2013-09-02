@@ -140,14 +140,11 @@
 			    			android:layout_height="wrap_content"
 			    			android:layout_gravity="center_horizontal"
 			    			/>
-			    <TextView android:id="@+id/text_refresh_num"
+			    <ImageView android:id="@+id/text_refresh_num"
 			    			android:layout_width="wrap_content"
 			    			android:layout_height="wrap_content"
-			    			android:textColor="@android:color/secondary_text_light"
-			    			android:textStyle="bold"
-			    			android:text="1"
-			    			android:textSize="13sp"
-			    			android:layout_gravity="left|bottom"/>
+			    			android:layout_gravity="left|bottom"
+			    			android:background="@drawable/tool1"/>
 		    </FrameLayout>
 		    
    	        <FrameLayout
@@ -161,20 +158,18 @@
 			    			android:layout_height="wrap_content"
 			    			android:background="@drawable/game_tip_selector"
 			    			/>
-		     	<TextView android:id="@+id/text_tip_num"
+		     	<ImageView android:id="@+id/text_tip_num"
 			    			android:layout_width="wrap_content"
 			    			android:layout_height="wrap_content"
-			    			android:textColor="@android:color/secondary_text_light"
-			    			android:textStyle="bold"
-			    			android:text="1"
-			    			android:textSize="13sp"
-			    			android:layout_gravity="left|bottom"/>
+			    			android:layout_gravity="left|bottom"
+			    			android:background="@drawable/tool1"/>
 	     	</FrameLayout>
 	     	
    	       <FrameLayout
 	   			android:layout_weight="1.8"
 	   			android:layout_width="0dp"
 	   			android:layout_height="wrap_content"
+	   			android:layout_marginTop="2dp"
 	   			>
 		     	<ImageButton android:id="@+id/find_btn"
 			    			android:layout_width="wrap_content"
@@ -182,14 +177,11 @@
 			    			android:layout_gravity="center_horizontal"
 			    			android:background="@drawable/game_find_selector"
 			    			/>
-		     	<TextView android:id="@+id/text_find_num"
+		     	<ImageView android:id="@+id/text_find_num"
 			    			android:layout_width="wrap_content"
 			    			android:layout_height="wrap_content"
-			    			android:textColor="@android:color/secondary_text_light"
-			    			android:textStyle="bold"
-			    			android:text="1"
-			    			android:textSize="13sp"
-			    			android:layout_gravity="left|bottom"/>
+			    			android:layout_gravity="left|bottom"
+			    			android:background="@drawable/tool1"/>
 	     	</FrameLayout>
       </LinearLayout>	
     </RelativeLayout>			
