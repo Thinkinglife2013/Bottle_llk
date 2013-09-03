@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.umeng.update.UmengUpdateAgent;
 import com.xiude.view.MyTouchListener;
@@ -42,6 +43,33 @@ public class FirstActivity extends BaseActivity {
 			  	FirstActivity.gameMode = 1;
 				Intent i = new Intent(FirstActivity.this, SelectGuanActivity.class);
 				startActivity(i);
+			}
+		});
+		
+		final ImageView challegeMode = (ImageView)findViewById(R.id.challege_mode);
+		challegeMode.setOnTouchListener(new MyTouchListener(this){
+
+			@Override
+			public void postOnTouch() {
+				Toast.makeText(FirstActivity.this, R.string.mode_tip, 1).show();
+			}
+		});
+		
+		final ImageView infiniteMode = (ImageView)findViewById(R.id.infinite_mode);
+		infiniteMode.setOnTouchListener(new MyTouchListener(this){
+
+			@Override
+			public void postOnTouch() {
+				Toast.makeText(FirstActivity.this, R.string.mode_tip, 1).show();
+			}
+		});
+		
+		final ImageView mengmoMode = (ImageView)findViewById(R.id.mengmo_mode);
+		mengmoMode.setOnTouchListener(new MyTouchListener(this){
+
+			@Override
+			public void postOnTouch() {
+				Toast.makeText(FirstActivity.this, R.string.mode_tip, 1).show();
 			}
 		});
 			

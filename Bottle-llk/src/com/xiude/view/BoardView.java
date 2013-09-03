@@ -292,7 +292,7 @@ public class BoardView extends View {
 				if(duration < 2000){
 					int lineCount = ++Constants.lineCount;
 					
-					final Toast toast = Toast.makeText(this.getContext(), "连击数："+lineCount, 0);
+					final Toast toast = Toast.makeText(this.getContext(), getResources().getString(R.string.lianji)+"："+lineCount, 0);
 					
 					//连击数计算总得分，并显示出来
 					customIntegral += lineCount * 30;

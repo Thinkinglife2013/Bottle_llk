@@ -11,4 +11,6 @@
     
      <string name="top_integral">积分：$分</string>
       <string name="top_level">历史最高:第$关</string>
+      <string name="lianji">连击数</string>
+      <string name="mode_tip">此模式正在开发当中，将在新版本中开放，敬请期待！</string>
 </resources>
