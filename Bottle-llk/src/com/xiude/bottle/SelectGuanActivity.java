@@ -232,6 +232,15 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 	
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		showStarCount(leftStar, rightStar);
+	}
+	
+	ImageView leftStar;
+	ImageView rightStar;
+	
 //	ViewGroup fatherLayout; //广告的展示位
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -247,8 +256,8 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 			}
 		});
 		
-		ImageView leftStar = (ImageView)findViewById(R.id.left_num);
-		ImageView rightStar = (ImageView)findViewById(R.id.right_num);
+		leftStar = (ImageView)findViewById(R.id.left_num);
+		rightStar = (ImageView)findViewById(R.id.right_num);
 		
 		//显示一共收集了几颗星星
 		showStarCount(leftStar, rightStar);

@@ -4,44 +4,19 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-   <!--  <ImageButton android:id="@+id/play_btn"
-    			android:layout_width="wrap_content"
-    			android:layout_height="wrap_content"
-    			android:layout_centerInParent="true"
-    			android:background="@drawable/buttons_bg1"
-    			android:src="@drawable/buttons_play"/> 
-    <ImageView android:id="@+id/title_img"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:layout_below="@id/play_btn"
-    		android:layout_centerHorizontal="true"
-    		android:src="@drawable/title"
-    		android:paddingTop="10dip"/>
-   	<ImageView
-   			android:id="@+id/clock"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:src="@drawable/clock"
-    		android:paddingTop="5dip"
-    		android:paddingLeft="5dip"
-    		android:visibility="gone"/>-->
-    		
-<!--    <LinearLayout 
-	    android:layout_width="wrap_content"
+    <LinearLayout 
+         android:id="@+id/top"
+	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentTop="true"
-	    android:layout_alignParentLeft="true"
-	    android:layout_marginLeft="10dp"
-	    android:layout_marginTop="5dp"
-	    > -->
+	    android:weightSum="5">
     <LinearLayout 
         android:id="@+id/level"
-	    android:layout_width="wrap_content"
+	    android:layout_width="0dp"
 	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:layout_alignParentLeft="true"
 	    android:layout_marginLeft="2dp"
 	    android:layout_marginTop="5dp"
+	    android:layout_weight="0.75"
 	    >
           <ImageView 
             android:id="@+id/num_one"
@@ -57,8 +32,21 @@
 		   />
     </LinearLayout>
     
+        <SeekBar
+    	android:id="@+id/timer"
+    	android:layout_height="wrap_content"
+    	android:layout_width="0dp"
+    	android:layout_marginTop="8dp"
+    	android:visibility="visible"
+    	android:layout_marginRight="3dip"
+    	android:progressDrawable="@layout/seekbar_img"  
+        style="?android:attr/progressBarStyleHorizontal"   
+        android:thumb="@null"
+        android:layout_weight="3.5"
+    	/>
+        
     <TextView android:id="@+id/custom_integral"
-   		android:layout_width="50dp"
+   		android:layout_width="0dp"
    		android:layout_height="wrap_content"
    		android:layout_alignParentRight="true"
    		android:layout_marginTop="7dp"
@@ -67,21 +55,9 @@
    		android:textSize="20dp"
    		android:text="0"
    		android:visibility="visible"
+   		android:layout_weight="0.75"
    		/>
-       
-    <SeekBar
-    	android:id="@+id/timer"
-    	android:layout_toLeftOf="@id/custom_integral"
-    	android:layout_toRightOf="@id/level"
-    	android:layout_height="wrap_content"
-    	android:layout_width="fill_parent"
-    	android:layout_marginTop="8dp"
-    	android:visibility="visible"
-    	android:layout_marginRight="3dip"
-    	android:progressDrawable="@layout/seekbar_img"  
-        style="?android:attr/progressBarStyleHorizontal"   
-        android:thumb="@null"
-    	/>
+    </LinearLayout>
  
     
     <ImageView android:id="@+id/ready_go"
@@ -98,7 +74,7 @@
     	android:layout_height="wrap_content" 
     	android:id="@+id/game_view"
     	android:visibility="gone"
-    	android:layout_below="@id/timer"
+    	android:layout_below="@id/top"
     />
     
 

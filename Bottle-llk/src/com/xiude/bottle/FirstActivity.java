@@ -114,7 +114,7 @@ public class FirstActivity extends BaseActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			Dialog dialog = new AlertDialog.Builder(this)
-            .setIcon(R.drawable.icon)
+//            .setIcon(R.drawable.icon)
             .setTitle(R.string.quit)
             .setMessage(R.string.sure_quit)
             .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
