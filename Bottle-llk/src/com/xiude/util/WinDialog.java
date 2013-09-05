@@ -137,15 +137,24 @@ public class WinDialog extends Dialog implements OnClickListener{
 		switch(v.getId()){
 		case R.id.menu_imgbtn:
 			((WelActivity)context).quit();
+			
+			//是否成功或失败的标识
+			WelActivity.isWinOrLose = false;
 			break;
 		case R.id.replay_imgbtn:
 			if(FirstActivity.gameMode == 3){
 				guan = 1;
 			}
 			gameview.startPlay(guan);
+			
+			//是否成功或失败的标识
+			WelActivity.isWinOrLose = false;
 			break;
 		case R.id.next_imgbtn:
 			gameview.startNextPlay(guan+1);
+			
+			//是否成功或失败的标识
+			WelActivity.isWinOrLose = false;
 			break;
 		}
 	}

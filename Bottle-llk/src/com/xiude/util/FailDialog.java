@@ -37,21 +37,9 @@ public class FailDialog extends Dialog implements OnClickListener{
 		this.dismiss();
 		switch(v.getId()){
 		case R.id.menu_imgbtn:
-		/*	Dialog dialog = new AlertDialog.Builder(context)
-            .setIcon(R.drawable.icon)
-            .setTitle(R.string.quit)
-            .setMessage(R.string.sure_quit)
-            .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                	((WelActivity)context).quit();
-                }
-            })
-            .setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                }
-            })
-            .create();
-			dialog.show();*/
+			//是否成功或失败的标识
+			WelActivity.isWinOrLose = false;
+			
 			((WelActivity)context).quit();
 			break;
 		case R.id.replay_imgbtn:
@@ -59,6 +47,9 @@ public class FailDialog extends Dialog implements OnClickListener{
 				guan = 1;
 			}
 			gameview.startPlay(guan);
+			
+			//是否成功或失败的标识
+			WelActivity.isWinOrLose = false;
 			break;
 		}
 	}
