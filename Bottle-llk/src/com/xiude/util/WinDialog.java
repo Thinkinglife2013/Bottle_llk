@@ -86,12 +86,12 @@ public class WinDialog extends Dialog implements OnClickListener{
 				starThreeView.setBackgroundResource(R.drawable.star_three);
 				
 				//如果当前关没有星星记录，才保存
-				if(starCount == 0){
+				if(starCount < 3){
 					starPreference.edit().putInt(guan+"star_count", 3).commit();
 					
 					//保存一共收集了多少颗星星
 					int totalCount = starPreference.getInt("total_star", 0);
-					totalCount += 3;
+					totalCount = totalCount - starCount + 3;
 					starPreference.edit().putInt("total_star", totalCount).commit();
 				}
 			}else if(percent > 0.33){
@@ -99,11 +99,11 @@ public class WinDialog extends Dialog implements OnClickListener{
 					GameView.soundPlay.play(GameView.ID_SOUND_STAR2, 0);
 				starTwoView.setBackgroundResource(R.drawable.star_two);
 				
-				if(starCount == 0){
+				if(starCount < 2 ){
 					starPreference.edit().putInt(guan+"star_count", 2).commit();
 					
 					int totalCount = starPreference.getInt("total_star", 0);
-					totalCount += 2;
+					totalCount = totalCount - starCount + 2;
 					starPreference.edit().putInt("total_star", totalCount).commit();
 				}
 			}else{

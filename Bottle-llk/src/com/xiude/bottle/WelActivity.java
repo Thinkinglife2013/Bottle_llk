@@ -141,7 +141,9 @@ public class WelActivity extends Activity implements OnClickListener,
 				if (guanNum == 1) {
 					curTopIntegral = 0;
 				}
-				setLevel(guanNum + "", levelOneView, levelTwoView);
+				
+				if(guanNum > 0)
+					setLevel(guanNum + "", levelOneView, levelTwoView);
 			}
 		}
 	};
@@ -251,7 +253,19 @@ public class WelActivity extends Activity implements OnClickListener,
 
 							@Override
 							public void onAnimationEnd(Animation animation) {
-								Animation scaleOut = AnimationUtils
+								
+								readyView.setVisibility(View.GONE);
+								// 开始游戏
+								initView();
+								gameView.startPlay(guan);
+								if (!BaseActivity.isAllBgMusicClickPause) {
+									player = MediaPlayer.create(
+											WelActivity.this,
+											R.raw.back2new);
+									player.setLooping(true);// 设置循环播放
+									player.start();
+								}
+							/*	Animation scaleOut = AnimationUtils
 										.loadAnimation(WelActivity.this,
 												R.anim.scale_anim_out);
 								readyView.startAnimation(scaleOut);
@@ -282,7 +296,7 @@ public class WelActivity extends Activity implements OnClickListener,
 											player.start();
 										}
 									}
-								});
+								});*/
 							}
 						});
 
@@ -307,7 +321,7 @@ public class WelActivity extends Activity implements OnClickListener,
 	 */
 	public void setLevel(String guanNum, ImageView firstGuan, ImageView tenGuan) {
 		Bitmap bmSrc = BitmapFactory.decodeResource(getResources(),
-				R.drawable.levelnumber);
+				R.drawable.number);
 
 		String[] nums;
 		if (guanNum.length() == 1) {
@@ -319,12 +333,12 @@ public class WelActivity extends Activity implements OnClickListener,
 		}
 
 		if (nums.length == 1) {
-			Bitmap firstBmDst = Bitmap.createBitmap(bmSrc, 0, 0,
+			Bitmap firstBmDst = Bitmap.createBitmap(bmSrc, 9 * bmSrc.getWidth() / 10, 0,
 					bmSrc.getWidth() / 10, bmSrc.getHeight());
 			firstGuan.setImageBitmap(firstBmDst);
 
 			int num = Integer.parseInt(nums[0]);
-			Bitmap tenBmDst = Bitmap.createBitmap(bmSrc, num * bmSrc.getWidth()
+			Bitmap tenBmDst = Bitmap.createBitmap(bmSrc, (num - 1) * bmSrc.getWidth()
 					/ 10, 0, bmSrc.getWidth() / 10, bmSrc.getHeight());
 			tenGuan.setImageBitmap(tenBmDst);
 		} else {
@@ -332,13 +346,14 @@ public class WelActivity extends Activity implements OnClickListener,
 			try {
 				int num = Integer.parseInt(nums[0]);
 				Bitmap bmDst = Bitmap.createBitmap(bmSrc,
-						num * bmSrc.getWidth() / 10, 0, bmSrc.getWidth() / 10,
+						(num - 1) * bmSrc.getWidth() / 10, 0, bmSrc.getWidth() / 10,
 						bmSrc.getHeight());
 				firstGuan.setImageBitmap(bmDst);
 
 				int num2 = Integer.parseInt(nums[1]);
 				Bitmap bmDst2 = Bitmap.createBitmap(bmSrc,
-						num2 * bmSrc.getWidth() / 10, 0, bmSrc.getWidth() / 10,
+						num2 - 1 == -1 ? 9 * bmSrc.getWidth() / 10
+								: (num2 - 1) * bmSrc.getWidth() / 10, 0, bmSrc.getWidth() / 10,
 						bmSrc.getHeight());
 				tenGuan.setImageBitmap(bmDst2);
 			} catch (Exception e) {
