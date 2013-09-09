@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.umeng.update.UmengUpdateAgent;
+import com.xiude.view.MyOnClickListener;
 import com.xiude.view.MyTouchListener;
 
 //company test
@@ -36,10 +37,11 @@ public class FirstActivity extends BaseActivity {
 			//end
 			
 		final ImageView customMode = (ImageView)findViewById(R.id.custom_mode);
-		customMode.setOnTouchListener(new MyTouchListener(this){
+		customMode.setOnClickListener(new MyOnClickListener(this){
 
 			@Override
-			public void postOnTouch() {
+			public void onClick(View v) {
+				super.onClick(v);
 			  	FirstActivity.gameMode = 1;
 				Intent i = new Intent(FirstActivity.this, SelectGuanActivity.class);
 				startActivity(i);
@@ -47,37 +49,41 @@ public class FirstActivity extends BaseActivity {
 		});
 		
 		final ImageView challegeMode = (ImageView)findViewById(R.id.challege_mode);
-		challegeMode.setOnTouchListener(new MyTouchListener(this){
+		challegeMode.setOnClickListener(new MyOnClickListener(this){
 
 			@Override
-			public void postOnTouch() {
-				Toast.makeText(FirstActivity.this, R.string.mode_tip, 1).show();
+			public void onClick(View v) {
+				super.onClick(v);
+				Toast.makeText(FirstActivity.this, R.string.mode_tip, 0).show();
 			}
 		});
 		
 		final ImageView infiniteMode = (ImageView)findViewById(R.id.infinite_mode);
-		infiniteMode.setOnTouchListener(new MyTouchListener(this){
+		infiniteMode.setOnClickListener(new MyOnClickListener(this){
 
 			@Override
-			public void postOnTouch() {
-				Toast.makeText(FirstActivity.this, R.string.mode_tip, 1).show();
+			public void onClick(View v) {
+				super.onClick(v);
+				Toast.makeText(FirstActivity.this, R.string.mode_tip, 0).show();
 			}
 		});
 		
 		final ImageView mengmoMode = (ImageView)findViewById(R.id.mengmo_mode);
-		mengmoMode.setOnTouchListener(new MyTouchListener(this){
+		mengmoMode.setOnClickListener(new MyOnClickListener(this){
 
 			@Override
-			public void postOnTouch() {
-				Toast.makeText(FirstActivity.this, R.string.mode_tip, 1).show();
+			public void onClick(View v) {
+				super.onClick(v);
+				Toast.makeText(FirstActivity.this, R.string.mode_tip, 0).show();
 			}
 		});
 			
 		bgMcView = (ImageView)findViewById(R.id.bg_music);
-		bgMcView.setOnTouchListener(new MyTouchListener(this) {
+		bgMcView.setOnClickListener(new MyOnClickListener(this) {
 			
 			@Override
-			public void postOnTouch() {
+			public void onClick(View v) {
+				super.onClick(v);
 				if(isAllBgMusicClickPause == true){
 					isAllBgMusicClickPause = false;
 					BgMediaPlayer.restartMedia();
@@ -91,10 +97,11 @@ public class FirstActivity extends BaseActivity {
 		});
 		
 		gameMcView = (ImageView)findViewById(R.id.game_music);
-		gameMcView.setOnTouchListener(new MyTouchListener(this) {
+		gameMcView.setOnClickListener(new MyOnClickListener(this) {
 			
 			@Override
-			public void postOnTouch() {
+			public void onClick(View v) {
+				super.onClick(v);
 				if(isGameBgPause == true){
 					isGameBgPause = false;
 					gameMcView.setImageResource(R.drawable.laba_yes);

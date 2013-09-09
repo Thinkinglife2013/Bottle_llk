@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -27,7 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.xiude.view.MyItemClickListener;
-import com.xiude.view.MyTouchListener;
+import com.xiude.view.MyOnClickListener;
 
 public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		OnPageChangeListener, OnGestureListener {
@@ -50,6 +49,9 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 
 	GestureDetector detector;
 	GridAdapter gridAdapter;
+	GridAdapter gridAdapter2;
+	GridAdapter gridAdapter3;
+	
 	int level;
 	
 
@@ -248,10 +250,11 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.guan);
 		
 		ImageView backView = (ImageView)findViewById(R.id.back);
-		backView.setOnTouchListener(new MyTouchListener(this) {
+		backView.setOnClickListener(new MyOnClickListener(this) {
 			
 			@Override
-			public void postOnTouch() {
+			public void onClick(View v) {
+				super.onClick(v);
 				finish();
 			}
 		});
@@ -325,7 +328,7 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 
 			guanList2.add(guan);
 		}
-		GridAdapter gridAdapter2 = new GridAdapter(this, guanList2, level);
+		gridAdapter2 = new GridAdapter(this, guanList2, level);
 		gridView2.setAdapter(gridAdapter2);
 		
 		gridView2.setOnItemClickListener(new MyItemClickListener(this) {
@@ -358,7 +361,7 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 
 			guanList3.add(guan);
 		}
-		GridAdapter gridAdapter3 = new GridAdapter(this, guanList3, level);
+		gridAdapter3 = new GridAdapter(this, guanList3, level);
 		gridView3.setAdapter(gridAdapter3);
 		
 		gridView3.setOnItemClickListener(new MyItemClickListener(this) {
@@ -409,6 +412,12 @@ public class SelectGuanActivity extends BaseActivity implements OnClickListener,
 		}
 		gridAdapter.setLevel(level);
 		gridAdapter.notifyDataSetChanged();
+		
+		gridAdapter2.setLevel(level);
+		gridAdapter2.notifyDataSetChanged();
+		
+		gridAdapter3.setLevel(level);
+		gridAdapter3.notifyDataSetChanged();
 	}
 	
 	private void initDots() {

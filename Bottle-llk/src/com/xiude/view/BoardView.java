@@ -292,22 +292,44 @@ public class BoardView extends View {
 				if(duration < 2000){
 					int lineCount = ++Constants.lineCount;
 					
-					final Toast toast = Toast.makeText(this.getContext(), getResources().getString(R.string.lianji)+"："+lineCount, 0);
+				/*	new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							if(tempToast != null){
+								tempToast.cancel();
+							}
+						}
+					}).start();*/
+					
+					toast = Toast.makeText(this.getContext(), getResources().getString(R.string.lianji)+"："+lineCount, 0);
+//					tempToast = toast;
 					
 					//连击数计算总得分，并显示出来
 					customIntegral += lineCount * 30;
 					customIntegralView.setText(String.valueOf(customIntegral));
 					
-//					Runnable r = new Runnable() {
-//						
-//						@Override
-//						public void run() {
-//							toast.cancel();
-//						}
-//					};
-//					handler.removeCallbacks(r);
 					toast.show();
-//					 handler.postDelayed(r, 1000);
+					
+				/*	for(Runnable  run : runnableList){
+						Log.i("toast", "removeCallbacks");
+						handler.removeCallbacks(run);
+					}
+					runnableList.clear();
+					
+					Log.i("toast", "show==="+toast.toString());
+					Runnable r = new Runnable() {
+						
+						@Override
+						public void run() {
+							Log.i("toast", "cancel==="+toast.toString());
+							toast.cancel();
+						}
+					};
+					runnableList.add(r);
+					
+					 handler.postDelayed(r, 1000);*/
+					 
 					if(Constants.lineCount > Constants.maxCount){
 						Constants.maxCount = Constants.lineCount;
 					}
@@ -320,6 +342,8 @@ public class BoardView extends View {
 		}
 		isFind = false;
 	}
+	public static Toast toast;
+//	private List<Toast> runnableList = new ArrayList<Toast>();
 	
 	
 	/**

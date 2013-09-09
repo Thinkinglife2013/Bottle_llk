@@ -14,7 +14,7 @@
 	        android:id="@+id/custom_mode"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
-	    	android:background="@drawable/custom_mode"
+	    	android:background="@drawable/custom_selector"
 	    	android:layout_gravity="center_horizontal"
 	    	android:layout_marginTop="20dp"
 	    	android:layout_marginBottom="15dp"/>
@@ -22,14 +22,14 @@
 	        android:id="@+id/challege_mode"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
-	    	android:background="@drawable/challege_mode"
+	    	android:background="@drawable/challege_selector"
 	    	android:layout_marginTop="20dp"
 	    	android:layout_marginLeft="30dp"/>
 	     <ImageView 
 	        android:id="@+id/infinite_mode"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
-	    	android:background="@drawable/infinite_mode"
+	    	android:background="@drawable/infinite_selector"
 	    	android:layout_gravity="right"
 	    	android:layout_marginTop="0dp"
 	    	android:layout_marginRight="30dp"/>
@@ -37,7 +37,7 @@
 	        android:id="@+id/mengmo_mode"
 	        android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
-	    	android:background="@drawable/mengmo_mode"
+	    	android:background="@drawable/mengmo_selector"
 	    	android:layout_gravity="center_horizontal"
 	    	android:layout_marginTop="20dp"
 	    	android:layout_marginRight="20dp"/>
