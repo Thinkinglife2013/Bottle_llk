@@ -135,33 +135,6 @@ public class BoardView extends View {
 		loadBitmaps(26, r.getDrawable(R.drawable.fruit_26));
 		loadBitmaps(27, r.getDrawable(R.drawable.fruit_27));
 		
-/*		//初始化连线图片
-		lineBm = BitmapFactory.decodeResource(getResources(), R.drawable.line);
-		
-		//初始化左上角方向转角图片
-		leftTopCornerBm = BitmapFactory.decodeResource(getResources(), R.drawable.corner);
-		
-        Matrix matrix=new Matrix(); 
-        
-        //初始化左下角方向转角图片
-	    // 向左旋转90度，参数为正则向右旋转  
-	    matrix.postRotate(-90); 
-        leftBottomBm = Bitmap.createBitmap(leftTopCornerBm,0,0,leftTopCornerBm.getWidth(), 
-        		leftTopCornerBm.getHeight(), matrix,true); 
-        
-      //初始化右上角方向转角图片
-        Matrix matrix2=new Matrix(); 
-	     // 向左旋转90度，参数为正则向右旋转  
-	     matrix2.postRotate(90); 
-	     rightTopBm = Bitmap.createBitmap(leftTopCornerBm,0,0,leftTopCornerBm.getWidth(), 
-      		leftTopCornerBm.getHeight(), matrix2,true); 
-	     
-	     //初始化右下角方向转角图片
-       Matrix matrix3 = new Matrix(); 
-	     // 向左旋转90度，参数为正则向右旋转  
-	     matrix3.postRotate(180); 
-	     rightBottomBm = Bitmap.createBitmap(leftTopCornerBm,0,0,leftTopCornerBm.getWidth(), 
-     		leftTopCornerBm.getHeight(), matrix3,true); */
 	}
 	
 	/**
@@ -253,7 +226,7 @@ public class BoardView extends View {
 					
 					canvas.drawLine(p1.x + iconSize / 2, p1.y + iconSize / 2,
 						p2.x + iconSize / 2, p2.y + iconSize / 2, paint);
-					
+					Log.i("autoClear", "drawLine");
 				}
 			}
 			
@@ -351,6 +324,7 @@ public class BoardView extends View {
 	 * @param path
 	 */
 	public void drawLine(Point[] path) {
+		Log.i("autoClear", "path.length ="+path.length);
 		this.path = path;
 		this.invalidate();
 	}

@@ -62,7 +62,7 @@ public class WelActivity extends Activity implements OnClickListener,
 			switch (msg.what) {
 			// 胜利
 			case 0: {
-				BoardView.toast.cancel();
+//				BoardView.toast.cancel();
 				
 				int maxCount = Constants.maxCount; // 最大连击数
 				Log.i("progress", progress.getMax() + "");
@@ -423,7 +423,7 @@ public class WelActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		BoardView.toast.cancel();
+//		BoardView.toast.cancel();
 		
 		Log.i("welActivity", "destory");
 		gameView.setMode(GameView.QUIT);

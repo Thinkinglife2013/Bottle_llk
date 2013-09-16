@@ -482,6 +482,7 @@ public class GameView extends BoardView {
 //		Log.i("selected.size()", selected.size()+"");
 		if (map[p.x][p.y] > 0) {
 			if (selected.size() == 1) {
+					
 				if (link(selected.get(0), p)) {
 					selected.add(p);
 					drawLine(path.toArray(new Point[] {}));
@@ -497,6 +498,7 @@ public class GameView extends BoardView {
 						soundPlay.play(ID_SOUND_CHOOSE, 0);
 					GameView.this.invalidate();
 				}
+				
 			} else {
 				selected.add(p);
 				
@@ -505,6 +507,7 @@ public class GameView extends BoardView {
 				GameView.this.invalidate();
 			}
 		}
+		
 //		Log.i("selected.size()", selected.size()+"");
 		return super.onTouchEvent(event);
 	}
@@ -1619,6 +1622,7 @@ public class GameView extends BoardView {
 	List<Point> p2E = new ArrayList<Point>();
 
 	private boolean link(Point p1, Point p2) {
+		long beginTime = System.currentTimeMillis();
 		if (p1.equals(p2)) {
 			return false;
 		}
@@ -1682,6 +1686,11 @@ public class GameView extends BoardView {
 			}
 			return false;
 		}
+		
+		long endTime = System.currentTimeMillis();
+		long duration = endTime - beginTime;
+		Log.i("autoClear", "link--path.size ="+path.size());
+		Log.i("autoClear", "duration ="+duration);
 		return false;
 	}
 
@@ -1768,12 +1777,17 @@ public class GameView extends BoardView {
 			if(soundPlay != null)
 				soundPlay.play(ID_SOUND_ERROR, 0);
 		}else{
+			if (die()) {
+				change();
+			}
 			if(soundPlay != null)
 				soundPlay.play(ID_SOUND_TIP, 0);
-			Help--;
-			toolsChangedListener.onTipChanged(Help);
-			drawLine(path.toArray(new Point[] {}));
-			refreshHandler.sleep(300);
+			
+				Help--;
+				toolsChangedListener.onTipChanged(Help);
+				Log.i("autoClear", "true");
+				drawLine(path.toArray(new Point[] {}));
+				refreshHandler.sleep(300);
 		}
 	}
 	
@@ -1803,8 +1817,13 @@ public class GameView extends BoardView {
 			if(soundPlay != null)
 				soundPlay.play(ID_SOUND_ERROR, 0);
 		}else{
+			if (die()) {
+				change();
+			}
+			
 			if(soundPlay != null)
 				soundPlay.play(ID_SOUND_TIP, 0);
+			
 			Find--;
 			toolsChangedListener.onFindChanged(Find);
 			tip(path.toArray(new Point[]{}));
